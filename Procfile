@@ -1,1 +1,1 @@
-web: gunicorn --pythonpath odesk odesk:app --debug --log-level debug
+web: gunicorn --pythonpath survey survey:app --log-level debug
