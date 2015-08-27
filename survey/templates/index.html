@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% set title='Odesk sample application' %}
+
+    {%- block head_meta -%}
+    <meta charset="utf-8">
+    <meta name="description" content="It is actually a survey. User must choose which things are most important to spend money on. This tells me if they actually want a lot of less expensive things or one very expensive thing.">
+    <meta name="author" content="Alex P">
+    {%- endblock head_meta -%}
+
+    <title>{{ title }}</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+    {%- block head_css -%}
+    <link rel="stylesheet" href="{{ url_for('static', filename='lib/skeleton/css/normalize.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='lib/skeleton/css/skeleton.css') }}">
+    {%- endblock head_css -%}
+
+    <link rel="icon" type="image/x-icon" href="{{ url_for('favicon') }}" />
+</head>
+
+<body class="{{ body_cls if body_cls else '' }}">
+    <div class="container">
+        <div class="row">
+            <div class="">
+                <a class="button button-primary" href="#">Login with Google</a>
+            </div>
+        </div>
+    </div>
+
+    {%- block page_javascript -%}
+    <script src="{{ url_for('static', filename='lib/jquery/jquery-2.1.4.min.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='lib/bootstrap/js/bootstrap.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='lib/jasny-bootstrap-fileupload/js/jasny-bootstrap.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='js/js.js') }}" type="text/javascript"></script>
+    {%- endblock -%}
+</body>
+</html>

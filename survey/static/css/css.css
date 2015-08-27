@@ -1,0 +1,53 @@
+body {
+    padding: 10px;
+}
+
+form {
+    padding: 20px;
+    border: 1px #ccc solid;
+    border-radius: 4px;
+}
+
+form div.fieldset {
+    background-color: #efe;
+    border: 1px #ccc solid;
+    border-radius: 4px;
+    padding: 6px;
+}
+
+form div.fieldset:first-of-type {
+    margin-bottom: 20px;
+}
+
+form .form-group {
+    margin-bottom: 7px;
+}
+
+form .form-group label {
+    margin-bottom: 3px;
+}
+
+.fileinput {
+    display: block;
+}
+
+.fileinput .thumbnail {
+    max-width: 300px;
+    max-height: 217px;
+    width: 100%;
+}
+
+.fileinput .thumbnail img {
+    height: 100%;
+    width: 100%;
+    display: block;
+}
+
+.button-container {
+    margin-top: 15px;
+    height: 45px;
+}
+
+.button-container button {
+    width: 200px;
+}

@@ -1,0 +1,15 @@
+*.py[cod]
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+*.mo
+*.pot
+*.log
+docs/_build/
+/sass/.sass-cache/**
+env/
