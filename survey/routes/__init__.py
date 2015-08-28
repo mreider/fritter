@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from flask import redirect, render_template, send_from_directory, url_for, redirect
+from flask import send_from_directory
 from survey.config import settings
 import importlib
 

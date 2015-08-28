@@ -1,0 +1,50 @@
+﻿{%- extends 'index.html' -%}
+
+{%- block head_title -%}
+{% set title='Welcome!' %}
+<title>{{ title }}</title>
+{%- endblock head_title -%}
+
+{%- block container -%}
+{%- if current_user.is_authenticated() -%}
+  <div class="top-user-panel">
+    <div class="row">
+      <div class="two columns user-image">
+        <img src="{{ current_user.avatar }}"/>
+      </div>
+      <div class="five columns user-name">
+        Welcome {{ current_user.name }}!
+      </div>
+      <div class="two columns user-money">
+        <span>Amount: </span>
+        <span>${{ current_user.dollars }}</span>
+
+      </div>
+      <div class="three columns">
+        <a class="button button-primary pull-right" href="{{ url_for('logout') }}">Logout</a>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row" style="margin-top: 50%">
+    <div class="four columns"></div>
+    <div class="four columns">
+
+    </div>
+    <div class="four columns"></div>
+  </div>
+
+  {%- else  -%}
+  <div class="row" style="margin-top: 50%">
+    <div class="four columns"></div>
+    <div class="four columns">
+        <a class="button button-primary" href="{{ url_for('login') }}">
+          <img src="{{ url_for('static', filename='img/google.png') }}" style="height: 30px" />
+        Login with Google
+        </a>
+    </div>
+    <div class="four columns"></div>
+  </div>
+{%- endif  -%}
+{%- endblock container -%}

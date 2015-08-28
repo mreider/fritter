@@ -12,11 +12,13 @@ START TRANSACTION;
 CREATE TABLE IF NOT EXISTS users (
     id              INT NOT NULL AUTO_INCREMENT,
     name            VARCHAR(100) NOT NULL,
+    email           VARCHAR(50) NOT NULL,
     avatar          VARCHAR(200),
     dollars         INT(11) NOT NULL DEFAULT '100',
     created_date    DATETIME NOT NULL,
     
-    PRIMARY KEY(id)
+    PRIMARY KEY(id),
+    UNIQUE KEY email_uniq (email)
 );
 
 CREATE TABLE IF NOT EXISTS items (

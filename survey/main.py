@@ -2,9 +2,9 @@
 
 import os
 from flask import Flask, session
-from survey.common.routes import configure_routes
-from survey.extensions import db, oauth, google_auth
-
+from survey.extensions import db, oauth, google_auth, login_manager
+from survey.routes import configure_routes
+from survey.models import User
 
 def init(name):
     app = Flask(name)
@@ -39,9 +39,26 @@ def configure_extensions(app):
     def get_google_oauth_token():
         return session.get('google_token')
 
+    login_manager.init_app(app)
+    login_manager.login_view = '/login'
+
+    @login_manager.user_loader
+    def load_user(userid):
+        result = None
+        try:
+            result = User.query.get(userid)
+        except:
+            pass
+
+        return result
 
 def init_blueprint(app):
-    pass
-    # TODO: Initialize AJAX service here
+    from survey.services.item_service import module as item_service
+    app.register_blueprint(item_service)
+
+    from survey.services.comment_service import module as comment_service
+    app.register_blueprint(comment_service)
+
+
 
 app = init(__name__)
