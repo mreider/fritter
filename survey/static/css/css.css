@@ -21,3 +21,123 @@ body {
 .top-user-panel .user-money {
     margin-top: 6px;
 }
+
+a.button[disabled],
+a.button[disabled]:hover,
+a.button[disabled]:focus {
+    color: #ddd;
+    cursor: default;
+    border-color: #ddd
+}
+
+.collapse .collapse-head {
+    cursor: pointer;
+}
+
+.items-list .item {
+    margin: 4px;
+    border: 1px solid #555;
+    border-radius: 4px;
+    display: inline-block;
+    width: 300px;
+    padding: 4px;
+}
+
+.items-list .item .item-name {
+    text-align: center;
+}
+
+.items-list .item .item-desc {
+    margin-bottom: 15px;
+}
+
+.items-list .item .item-controls {
+    text-align: center;
+}
+
+.items-list .item .item-controls a {
+    margin-right: 20px;
+    width: 120px;
+}
+
+.loading {
+    background-image: url('/static/img/loading.gif');
+    background-repeat: no-repeat;
+    background-size: 40px 40px;
+    background-position: 50% 50%;
+}
+
+.collapse-body.expanded {
+    min-height: 40px;
+}
+
+.comment-author>div, .bought-autor>div {
+    display: inline-block;
+}
+
+.comment-avatar, .bought-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    background-size: 40px 40px;
+    background-repeat: no-repeat;
+    float: left;
+}
+
+.comment-name, .bought-name {
+    line-height: 40px;
+    padding-left: 10px;
+}
+
+.comment-content {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #999
+
+}
+
+.add-comment-content {
+    width: 100%;
+    height: 70px;
+    font-size: 10pt;
+}
+
+.notification {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top:0;
+    bottom:0;
+    width: 500px;
+    height: 500px;
+    margin: auto;
+    border: 2px solid #555;
+    background-color: white;
+    padding: 10px;
+}
+
+.notification .content {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+.notification .close {
+    cursor: pointer;
+    color: #fff;
+    border: 1px solid #AEAEAE;
+    border-radius: 30px;
+    background: #605F61;
+    font-size: 31px;
+    font-weight: bold;
+    display: inline-block;
+    line-height: 0;
+    padding: 8px 3px 10px 3px;
+    position: absolute;
+    right: -11px;
+    top: -11px;
+    padding-bottom: 12px;
+}
+
+.notification .close:before {
+    content: "×";
+}

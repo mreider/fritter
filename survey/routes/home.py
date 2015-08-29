@@ -19,11 +19,15 @@ def home():
 
     if 'google_token' in session:
         me = google_auth.get('userinfo')
+
+        error = me.data.get('error')
+        if error:
+            if error.get('code') == 401:
+                return redirect(url_for('logout'))
+
         user = User.query.filter(User.email == me.data['email']).first()
         if user:
             login_user(user)
 
-    context = {
-    }
-
+    context = {}
     return render_template('home.html', **context)
