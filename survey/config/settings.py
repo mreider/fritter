@@ -25,5 +25,11 @@ ROUTES = {
         'methods': ['GET']
     },
 
+    'routes.loadyaml': {
+        'endpoint': 'loadyaml',
+        'route': '/loadyaml',
+        'methods': ['GET', 'POST']
+    },
+
 
 }

@@ -59,4 +59,12 @@ CREATE TABLE IF NOT EXISTS comments (
     FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS surveys (
+    id              INT AUTO_INCREMENT PRIMARY KEY,
+    name            VARCHAR(100),
+    description     VARCHAR(300),
+    dollars         INT NOT NULL,
+    created_date    DATETIME NOT NULL
+);
+
 COMMIT;

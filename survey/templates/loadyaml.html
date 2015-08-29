@@ -1,0 +1,24 @@
+﻿{%- extends 'index.html' -%}
+
+{%- block head_title -%}
+<title>Load YAML file and create new survey</title>
+{%- endblock head_title -%}
+
+{%- block container -%}
+  <div class="items-panel">
+    <div class="row">
+      <div class="twelve columns">
+        <form name="yaml_upload" method="POST">
+          <div class="row">
+            <label>Please choose YAML file to upload</label>
+            <input type="file"/>
+          </div>
+
+          <div class="row">
+            <input type="submit" value="Upload YAML"/>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{%- endblock container -%}
