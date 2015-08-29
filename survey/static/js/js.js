@@ -102,8 +102,9 @@ this.HomePageModel = function(config) {
         .done(function(response) {
             if (response.success) {
                 var comment = response.data.comment,
+                    template = $('#comment-template').html(),
                     $lastComment = $item.find('.comments .comment').last(),
-                    $node = $(Mustache.render(_config.commentTemplate, comment));
+                    $node = $(Mustache.render(template, comment));
 
                 $lastComment.after($node);
                 $item.find('.add-comment-content').val('');
