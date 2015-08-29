@@ -78,7 +78,7 @@ this.HomePageModel = function(config) {
                     }
                 }
 
-                $body.append($('add-comment-template').html());
+                $body.append($('#add-comment-template').html());
             })
             .fail(function(response) {
                 alert('Something goes wrong with comments!')
