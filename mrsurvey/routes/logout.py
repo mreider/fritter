@@ -7,4 +7,4 @@ from flask.ext.login import login_required, logout_user
 def logout():
     print '>> logout'
     logout_user()
-    return redirect(url_for('home'))
+    return redirect(url_for('index'))
