@@ -8,3 +8,5 @@ GOOGLE = {
     'consumer_key': 'from env vars',
     'consumer_secret': 'from env vars'
 }
+
+REMEMBER_COOKIE_DURATION6=3600

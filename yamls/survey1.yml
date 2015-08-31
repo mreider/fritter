@@ -1,0 +1,14 @@
+﻿name: survey1
+description: It is just first survey
+dollars: 100
+items:
+  - name: item1
+    description: Just Item One
+    price: 50
+  - name: item2
+    description: Just Item Two
+    price: 60
+  - name: item3
+    description: Marvelous Item Three
+    price: 90
+

@@ -4,6 +4,16 @@ from survey.extensions import db
 from datetime import datetime
 
 
+class Survey(db.Model):
+    __tablename__ = 'surveys'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+    description = db.Column(db.String(300))
+    dollars = db.Column(db.Integer, default=100)
+    created_date = db.Column(db.DateTime, default=datetime.utcnow)
+
+
 class User(db.Model):
     __tablename__ = 'users'
 
@@ -11,7 +21,6 @@ class User(db.Model):
     name = db.Column(db.String(100))
     email = db.Column(db.String(50), unique=True)
     avatar = db.Column(db.String(200))
-    dollars = db.Column(db.Integer, default=100)
     created_date = db.Column(db.DateTime, default=datetime.utcnow)
 
     def is_active(self):
@@ -34,6 +43,17 @@ class User(db.Model):
 #            'dollars': self.dollars,
             'id': self.id
         }
+
+
+class UserWallet(db.Model):
+    __tablename__ = 'items_users'
+
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+    user = db.relationship('User', backref='purchases')
+    survey_id = db.Column(db.Integer, db.ForeignKey('surveys.id'), primary_key=True)
+    survey = db.relationship('Survey', backref='surveys')
+    dollars = db.Column(db.Integer)
+    created_date = db.Column(db.DateTime, default=datetime.utcnow)
 
 
 class Item(db.Model):

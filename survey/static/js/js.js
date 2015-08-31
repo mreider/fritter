@@ -103,10 +103,15 @@ this.HomePageModel = function(config) {
             if (response.success) {
                 var comment = response.data.comment,
                     template = $('#comment-template').html(),
+                    $comments = $item.find('.comments'),
                     $lastComment = $item.find('.comments .comment').last(),
                     $node = $(Mustache.render(template, comment));
 
-                $lastComment.after($node);
+                if ($lastComment.length) {
+                    $lastComment.after($node);
+                } else {
+                    $comments.append($node);
+                }
                 $item.find('.add-comment-content').val('');
                 $item.find('.comments-count').html($item.find('.comments .comment').length);
             } else {

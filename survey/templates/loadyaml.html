@@ -8,10 +8,10 @@
   <div class="items-panel">
     <div class="row">
       <div class="twelve columns">
-        <form name="yaml_upload" method="POST">
+        <form name="yaml_upload" method="POST" enctype="multipart/form-data">
           <div class="row">
             <label>Please choose YAML file to upload</label>
-            <input type="file"/>
+            <input type="file" id="yaml" name="yaml"/>
           </div>
 
           <div class="row">
