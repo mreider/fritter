@@ -28,20 +28,21 @@ CREATE TABLE IF NOT EXISTS users (
     UNIQUE KEY email_uniq (email)
 );
 
-CREATE TABLE IF NOT EXISTS user_wallet (
+CREATE TABLE IF NOT EXISTS users_wallets (
     user_id         INT NOT NULL,
     survey_id       INT NOT NULL,
     dollars         INT NOT NULL,
+    created_date    DATETIME NOT NULL,
 
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (survey_id) REFERENCES surveys(id) ON DELETE CASCADE,
 
-    PRIMARY KEY(user_id, thing_id)
+    PRIMARY KEY(user_id, survey_id)
 );
 
 CREATE TABLE IF NOT EXISTS items (
     id              INT NOT NULL AUTO_INCREMENT,
-    survey_id       INT NONT NULL,
+    survey_id       INT NOT NULL,
     name            VARCHAR(100),
     description     TEXT,
     price           INT,

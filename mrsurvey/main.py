@@ -46,7 +46,7 @@ def configure_extensions(app):
     def load_user(userid):
         result = None
         try:
-            result = User.query.get(userid)
+            result = User.query.get(int(userid))
         except:
             pass
 

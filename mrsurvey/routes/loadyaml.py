@@ -9,6 +9,8 @@ from mrsurvey.extensions import db
 
 
 def loadyaml():
+    print '>> loadyaml'
+
     context = {'errors': []}
 
     if request.method == 'POST':

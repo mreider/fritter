@@ -7,6 +7,8 @@ from mrsurvey.extensions import db, google_auth
 from mrsurvey.models import User
 
 def authorized():
+    print '>> authorized'
+
     response = google_auth.authorized_response()
 
     if response is None:

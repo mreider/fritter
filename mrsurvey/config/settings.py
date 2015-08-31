@@ -1,6 +1,12 @@
 ﻿# -*- coding: utf-8 -*-
 
 ROUTES = {
+    'routes.index': {
+        'endpoint': 'index',
+        'route': '/',
+        'methods': ['GET']
+    },
+
     'routes.authorized': {
         'endpoint': 'authorized',
         'route': '/authorized',
@@ -9,7 +15,7 @@ ROUTES = {
 
     'routes.home': {
         'endpoint': 'home',
-        'route': '/',
+        'route': '/home',
         'methods': ['GET']
     },
 

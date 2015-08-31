@@ -7,6 +7,7 @@ from mrsurvey.extensions import db
 
 @login_required
 def survey():
+    print '>> survey'
     survey_id = request.args.get('survey_id')
     context = {}
 

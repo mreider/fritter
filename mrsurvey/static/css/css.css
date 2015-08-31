@@ -175,6 +175,11 @@ a.button[disabled]:focus {
     background: #afa;
 }
 
+.flashes .flash.message,
+.flashes .flash.warning {
+    background: #dd6;
+}
+
 .page-loading {
     position: absolute;
     left: 0;
