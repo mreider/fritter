@@ -2,13 +2,13 @@
 
 import os
 from flask import send_from_directory
-from survey.config import settings
+from mrsurvey.config import settings
 import importlib
 
 
 def configure_routes(app):
     for module_name, module_config in settings.ROUTES.items():
-        module = importlib.import_module('survey.{}'.format(module_name))
+        module = importlib.import_module('mrsurvey.{}'.format(module_name))
 
         endpoint = getattr(module, module_config['endpoint'])
 

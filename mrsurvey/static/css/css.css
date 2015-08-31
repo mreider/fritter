@@ -141,3 +141,13 @@ a.button[disabled]:focus {
 .notification .close:before {
     content: "×";
 }
+
+.survey .survey-name {
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 0;
+}
+
+.survey .survey-desc {
+    margin-bottom: 20px;
+}

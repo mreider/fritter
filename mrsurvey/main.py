@@ -2,9 +2,9 @@
 
 import os
 from flask import Flask, session
-from survey.extensions import db, oauth, google_auth, login_manager
-from survey.routes import configure_routes
-from survey.models import User
+from mrsurvey.extensions import db, oauth, google_auth, login_manager
+from mrsurvey.routes import configure_routes
+from mrsurvey.models import User
 
 def init(name):
     app = Flask(name)
@@ -18,7 +18,7 @@ def init(name):
 
 
 def configure_app(app):
-    app.config.from_object('survey.config.app_config')
+    app.config.from_object('mrsurvey.config.app_config')
     app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('CLEARDB_DATABASE_URL')
 
     if os.getenv('GOOGLE_CONSUMER_KEY') and os.getenv('GOOGLE_CONSUMER_SECRET'):
@@ -53,10 +53,10 @@ def configure_extensions(app):
         return result
 
 def init_blueprint(app):
-    from survey.services.item_service import module as item_service
+    from mrsurvey.services.item_service import module as item_service
     app.register_blueprint(item_service)
 
-    from survey.services.comment_service import module as comment_service
+    from mrsurvey.services.comment_service import module as comment_service
     app.register_blueprint(comment_service)
 
 

@@ -1,6 +1,6 @@
 ﻿# -*- coding: utf-8 -*-
 
-from survey.extensions import db
+from mrsurvey.extensions import db
 from datetime import datetime
 
 
@@ -13,6 +13,13 @@ class Survey(db.Model):
     dollars = db.Column(db.Integer, default=100)
     created_date = db.Column(db.DateTime, default=datetime.utcnow)
 
+    def serialize(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'description': self.description,
+            'dollars': self.dollars
+        }
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -46,12 +53,12 @@ class User(db.Model):
 
 
 class UserWallet(db.Model):
-    __tablename__ = 'items_users'
+    __tablename__ = 'users_wallets'
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
-    user = db.relationship('User', backref='purchases')
+    user = db.relationship('User', backref='wallets')
     survey_id = db.Column(db.Integer, db.ForeignKey('surveys.id'), primary_key=True)
-    survey = db.relationship('Survey', backref='surveys')
+    survey = db.relationship('Survey')
     dollars = db.Column(db.Integer)
     created_date = db.Column(db.DateTime, default=datetime.utcnow)
 
@@ -63,6 +70,9 @@ class Item(db.Model):
     name = db.Column(db.String(100))
     description = db.Column(db.String)
     price = db.Column(db.Integer)
+
+    survey_id = db.Column(db.Integer, db.ForeignKey('surveys.id'), primary_key=True)
+    survey = db.relationship('Survey', backref='items')
     created_date = db.Column(db.DateTime, default=datetime.utcnow)
 
     def serialize(self):

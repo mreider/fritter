@@ -8,10 +8,16 @@
   <div class="items-panel">
     <div class="row">
       <div class="twelve columns">
-        <form name="yaml_upload" method="POST" enctype="multipart/form-data">
+        <form name="yaml_upload {{ 'errors' if errors else '' }}" method="POST" enctype="multipart/form-data">
           <div class="row">
             <label>Please choose YAML file to upload</label>
             <input type="file" id="yaml" name="yaml"/>
+          </div>
+
+          <div class="errors-text">
+            {%- for error in errors -%}
+              <div class="error-line">{{ error }}</div  >
+            {%- endfor -%}
           </div>
 
           <div class="row">

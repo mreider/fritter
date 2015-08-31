@@ -3,9 +3,9 @@
 from flask import Blueprint, jsonify, request
 from flask.views import MethodView
 from flask.ext.login import login_required, current_user
-from survey.extensions import db
-from survey.services.base import BaseAPI
-from survey.models import Item, User, Purchase
+from mrsurvey.extensions import db
+from mrsurvey.services.base import BaseAPI
+from mrsurvey.models import Item, User, Purchase
 from datetime import datetime
 
 module = Blueprint('service.item_service', __name__)

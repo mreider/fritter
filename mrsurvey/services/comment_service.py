@@ -3,9 +3,9 @@
 from flask import Blueprint, jsonify, request
 from flask.ext.login import login_required, current_user
 from sqlalchemy import desc
-from survey.services.base import BaseAPI
-from survey.extensions import db
-from survey.models import Comment, Item
+from mrsurvey.services.base import BaseAPI
+from mrsurvey.extensions import db
+from mrsurvey.models import Comment, Item
 from datetime import datetime
 
 module = Blueprint('service.comment_service', __name__)

@@ -1,4 +1,4 @@
-this.HomePageModel = function(config) {
+this.SurveyPageModel = function(config) {
     var self = this;
     var _defaultConfig = {
         itemsServiceUrl: '',
@@ -219,4 +219,7 @@ this.HomePageModel = function(config) {
     }
 
     bind();
+};
+
+this.HomePageModel = function(config) {
 };

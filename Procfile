@@ -1,1 +1,1 @@
-web: gunicorn --pythonpath survey survey:app --log-level debug
+web: gunicorn --pythonpath mrsurvey mrsurvey:app --log-level debug
