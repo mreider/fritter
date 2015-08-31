@@ -14,7 +14,8 @@ class CommentAPI(BaseAPI):
     decorators = [login_required]
 
     def get(self):
-        item_id = request.args.get('item_id')
+        item_id = int(request.args.get('item_id'))
+        survey_id = int(request.args.get('survey_id'))
 
         if item_id:
             comments = (Comment.query
@@ -28,7 +29,8 @@ class CommentAPI(BaseAPI):
 
     def post(self):
         text = request.json.get('comment')
-        item_id = request.json.get('item_id')
+        item_id = int(request.json.get('item_id'))
+        survey_id = int(request.json.get('survey_id'))
 
         if text:
             comment = Comment(

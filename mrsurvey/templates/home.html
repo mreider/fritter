@@ -6,26 +6,6 @@
 {%- endblock head_title -%}
 
 {%- block container -%}
-  <div class="top-user-panel">
-    <div class="row">
-      <div class="two columns user-image">
-        <img src="{{ current_user.avatar }}"/>
-      </div>
-      <div class="five columns user-name">
-        Welcome {{ current_user.name }}!
-      </div>
-      <div class="two columns user-money">
-        <span>Amount: </span>
-        $<span class="amount">{{ current_user.dollars }}</span>
-
-      </div>
-      <div class="three columns">
-        <a class="button button-primary pull-right" href="{{ url_for('logout') }}" style="display: none">Logout</a>
-      </div>
-
-    </div>
-  </div>
-
   <div class="surveys-panel">
     <div class="row">
       <div class="twelve columns">
@@ -33,10 +13,10 @@
           <div class="survey" data-survey-id="{{id}}">
             <h5 class="survey-name">{{survey.name}} (${{survey.dollars}})</h5>
             {%- if survey.started -%}
-            <span class="survey-started">Survey started, available balance: {{survey.balance}}.
+            <span class="survey-started">Survey started, available balance: ${{survey.balance}}.
             <a href="{{ url_for('survey', survey_id=survey.id) }}">Continue&gt;&gt;</a></span>
             {%- else -%}
-            <span class="survey-not-started">New survey with balance {{survey.dollars}}.
+            <span class="survey-not-started">New survey with balance ${{survey.dollars}}.
             <a href="{{ url_for('survey', survey_id=survey.id) }}">Start&gt;&gt;</a></span>
             {%- endif -%}
             <div class="survey-desc">{{survey.description}}</div>

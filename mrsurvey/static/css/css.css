@@ -7,7 +7,7 @@ body {
 }
 
 .top-user-panel {
-    height: 40px;
+    height: 50px;
     background: #ccc;
     border-radius: 0px 0px 4px 4px;
     padding: 3px;
@@ -15,6 +15,7 @@ body {
 
 .top-user-panel .user-image img {
     width: 40px;
+    border-radius: 20px;
 }
 
 .top-user-panel .user-name,
@@ -60,11 +61,14 @@ a.button[disabled]:focus {
     width: 120px;
 }
 
-.loading {
+.loading, .comments.loading {
     background-image: url('/static/img/loading.gif');
     background-repeat: no-repeat;
-    background-size: 40px 40px;
     background-position: 50% 50%;
+}
+
+.comments.loading {
+    background-size: 100px;
 }
 
 .collapse-body.expanded {
@@ -150,4 +154,34 @@ a.button[disabled]:focus {
 
 .survey .survey-desc {
     margin-bottom: 20px;
+}
+
+.flashes {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.flashes .flash {
+    padding: 4px 7px;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.flashes .flash.error {
+    background: #faa;
+}
+
+.flashes .flash.success {
+    background: #afa;
+}
+
+.page-loading {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: #ccc;
+    z-index: 3000;
+    opacity: 0.3
 }

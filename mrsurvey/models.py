@@ -47,7 +47,6 @@ class User(db.Model):
             'email': self.email,
             'avatar': self.avatar,
             'name': self.name,
-#            'dollars': self.dollars,
             'id': self.id
         }
 
@@ -71,7 +70,7 @@ class Item(db.Model):
     description = db.Column(db.String)
     price = db.Column(db.Integer)
 
-    survey_id = db.Column(db.Integer, db.ForeignKey('surveys.id'), primary_key=True)
+    survey_id = db.Column(db.Integer, db.ForeignKey('surveys.id'))
     survey = db.relationship('Survey', backref='items')
     created_date = db.Column(db.DateTime, default=datetime.utcnow)
 
@@ -103,7 +102,6 @@ class Purchase(db.Model):
                 'email': self.user.email,
                 'avatar': self.user.avatar,
                 'name': self.user.name,
-                'dollars': self.user.dollars,
             },
             'item': self.thing.serialize()
         }

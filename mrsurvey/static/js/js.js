@@ -1,3 +1,22 @@
+function pageLoading(loading) {
+    if (loading) {
+        $('.page-loading').show();
+    } else {
+        $('.page-loading').hide();
+    }
+}
+
+function getQS(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+$(function() {
+    $('.flashes .flash').on('click', function() { $(this).fadeOut('slow'); });
+
+});
+
 this.SurveyPageModel = function(config) {
     var self = this;
     var _defaultConfig = {
@@ -15,10 +34,12 @@ this.SurveyPageModel = function(config) {
 
     var doNotShowWhoBought = false;
 
-
     function getAllItems() {
+        pageLoading(true);
+
         $.ajax({
             url: _config.itemsServiceUrl,
+            data: {survey_id: getQS('survey_id')},
             method: 'GET'
         })
         .done(function(respose) {
@@ -48,6 +69,7 @@ this.SurveyPageModel = function(config) {
             alert('Something goes wrong with items list!')
         })
         .always(function(respose) {
+            pageLoading(false);
         });
     }
 
@@ -57,9 +79,10 @@ this.SurveyPageModel = function(config) {
         var itemId = $head.parents('.item').attr('data-item-id');
 
         if (itemId) {
+            pageLoading(true);
             $.ajax({
                 url: _config.commentsServiceUrl,
-                data: {item_id: itemId},
+                data: {item_id: itemId, survey_id: getQS('survey_id')},
                 method: 'GET'
             })
             .done(function(response) {
@@ -84,6 +107,7 @@ this.SurveyPageModel = function(config) {
                 alert('Something goes wrong with comments!')
             })
             .always(function(response) {
+                pageLoading(false);
             });
         }
     }
@@ -93,9 +117,11 @@ this.SurveyPageModel = function(config) {
             itemId = $item.attr('data-item-id'),
             comment = $item.find('.add-comment-content').val();
 
+        pageLoading(true);
+
         $.ajax({
             url: _config.commentsServiceUrl,
-            data: JSON.stringify({comment: comment, item_id: itemId}),
+            data: JSON.stringify({comment: comment, item_id: itemId, survey_id: getQS('survey_id')}),
             method: 'POST',
             contentType: 'application/json'
         })
@@ -110,7 +136,7 @@ this.SurveyPageModel = function(config) {
                 if ($lastComment.length) {
                     $lastComment.after($node);
                 } else {
-                    $comments.append($node);
+                    $comments.prepend($node);
                 }
                 $item.find('.add-comment-content').val('');
                 $item.find('.comments-count').html($item.find('.comments .comment').length);
@@ -122,6 +148,7 @@ this.SurveyPageModel = function(config) {
             alert('Something goes wrong with your purchase!')
         })
         .always(function(response) {
+            pageLoading(false);
         });
     }
 
@@ -139,9 +166,10 @@ this.SurveyPageModel = function(config) {
 
     function purchaseItem(e) {
         var itemId = $(e.currentTarget).parents('.item').attr('data-item-id');
+        pageLoading(true);
         $.ajax({
             url: _config.itemsServiceUrl,
-            data: JSON.stringify({action: 'buy', item_id: itemId}),
+            data: JSON.stringify({action: 'buy', item_id: itemId, survey_id: getQS('survey_id')}),
             method: 'POST',
             contentType: 'application/json'
         })
@@ -149,7 +177,7 @@ this.SurveyPageModel = function(config) {
             if (response.success) {
                 var purchase = response.data.purchase,
                     $item = $(e.currentTarget).parents('.item');
-                $('.user-money .amount').html(purchase.user.dollars)
+                $('.user-money .amount').html(response.data.balance)
 
                 $item.find(_config.purchaseSelector).attr('disabled', 'disabled');
                 $item.find(_config.sellSelector).removeAttr('disabled');
@@ -163,14 +191,16 @@ this.SurveyPageModel = function(config) {
             alert('Something goes wrong with your purchase!')
         })
         .always(function(response) {
+            pageLoading(false);
         });
     }
 
     function sellItem(e) {
         var itemId = $(e.currentTarget).parents('.item').attr('data-item-id');
+        pageLoading(true);
         $.ajax({
             url: _config.itemsServiceUrl,
-            data: JSON.stringify({action: 'sell', item_id: itemId}),
+            data: JSON.stringify({action: 'sell', item_id: itemId, survey_id: getQS('survey_id')}),
             method: 'POST',
             contentType: 'application/json'
         })
@@ -178,7 +208,7 @@ this.SurveyPageModel = function(config) {
             if (response.success) {
                 var purchase = response.data.purchase,
                     $item = $(e.currentTarget).parents('.item');
-                $('.user-money .amount').html(purchase.user.dollars)
+                $('.user-money .amount').html(response.data.balance)
 
                 $item.find(_config.purchaseSelector).removeAttr('disabled');
                 $item.find(_config.sellSelector).attr('disabled', 'disabled');
@@ -190,6 +220,7 @@ this.SurveyPageModel = function(config) {
             alert('Something goes wrong with your selling!')
         })
         .always(function(response) {
+            pageLoading(false);
         });
     }
 

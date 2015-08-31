@@ -26,6 +26,43 @@
   </head>
 
   <body>
+      <div class="page-loading loading" style="display: none"></div>
+
+      <div class="container top-user-panel">
+        <div class="row">
+          <div class="two columns user-image">
+            <img src="{{ current_user.avatar }}"/>
+          </div>
+          <div class="five columns user-name">
+            Welcome {{ current_user.name }}!
+          </div>
+          <div class="two columns user-money">
+            {%- block user_info_column -%}
+            {%- endblock user_info_column -%}
+          </div>
+          <div class="three columns">
+            {%- block user_last_column -%}
+            {%- endblock user_last_column -%}
+            <a class="button button-primary pull-right" href="{{ url_for('logout') }}" style="display: none">Logout</a>
+          </div>
+
+        </div>
+      </div>
+
+      {%- with flashes = get_flashed_messages(with_categories=true) -%}
+      {%- if flashes -%}
+      <div class="container flashes">
+        {%- for category, flash in flashes -%}
+        <div class="row flash {{category}}">
+          <div class="twelve columns">
+            {{ flash |safe }}
+          </div>
+        </div>
+         {%- endfor -%}
+      </div>
+      {%- endif -%}
+      {%- endwith -%}
+
       {%- block container_wrapper -%}
       <div class="container">
       {%- block container -%}

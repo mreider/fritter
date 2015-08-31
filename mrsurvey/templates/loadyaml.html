@@ -4,6 +4,10 @@
 <title>Load YAML file and create new survey</title>
 {%- endblock head_title -%}
 
+{%- block user_last_column -%}
+<a href="{{ url_for('home') }}">&#8592; Back to surveys list</a>
+{%- endblock user_last_column -%}
+
 {%- block container -%}
   <div class="items-panel">
     <div class="row">
@@ -13,13 +17,6 @@
             <label>Please choose YAML file to upload</label>
             <input type="file" id="yaml" name="yaml"/>
           </div>
-
-          <div class="errors-text">
-            {%- for error in errors -%}
-              <div class="error-line">{{ error }}</div  >
-            {%- endfor -%}
-          </div>
-
           <div class="row">
             <input type="submit" value="Upload YAML"/>
           </div>
