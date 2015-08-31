@@ -13,9 +13,10 @@ def authorized():
 
     if response is None:
         flash('Access denied: reason={} error={}'.format(
-            request.args['error_reason'],
-            request.args['error_description']
+            request.args.get('error_reason', 'no reason'),
+            request.args.get('error_description', 'no description')
         ), 'error')
+        return redirect(url_for('logout'))
     elif type(response) == OAuthException:
         current_app.logger.error('OAuthException: "{}: {}"'.format(
             response.message,
