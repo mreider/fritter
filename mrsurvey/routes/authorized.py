@@ -1,6 +1,6 @@
 ﻿# -*- coding: utf-8 -*-
 
-from flask import redirect, url_for, flash, request, session
+from flask import redirect, url_for, flash, request, session, get_flashed_messages
 from flask_oauthlib.client import OAuthException
 from flask.ext.login import login_user
 from mrsurvey.extensions import db, google_auth
@@ -35,5 +35,7 @@ def authorized():
             db.session.commit()
 
         login_user(user, remember=True)
+        get_flashed_messages()
+
 
     return redirect(url_for('home'))
