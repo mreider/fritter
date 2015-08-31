@@ -1,4 +1,4 @@
 ﻿name: survey1
-description: Thie survey produce error - missing `items`. Other required fields: `name`, `dollars`.
+description: This survey produces an error - missing `items`. Other required fields: `name`, `dollars`.
 dollars: 100
 items:
