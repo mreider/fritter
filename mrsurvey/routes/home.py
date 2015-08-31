@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
-from flask import session, render_template, redirect, url_for
+from flask import session, render_template, redirect, url_for, current_app
 from flask.ext.login import current_user, login_required, login_user
 from mrsurvey.extensions import google_auth
 from mrsurvey.models import User, UserWallet, Survey
 
 @login_required
 def home():
-    print '>> home'
+    current_app.logger.info('home')
     context = {}
 
     started_surveys = {wallet.survey.id: wallet for wallet in

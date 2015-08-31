@@ -1,14 +1,14 @@
 ﻿# -*- coding: utf-8 -*-
 
-from flask import redirect, url_for, get_flashed_messages, session
+from flask import redirect, url_for, session, current_app
 from flask.ext.login import current_user
 
 def index():
-    print '>> index'
+    current_app.logger.info('index')
 
     if current_user.is_authenticated():
-        print '>> index.loggedon'
-        get_flashed_messages()
+        current_app.logger.info('index::aready logged on')
         return redirect(url_for('home'))
 
+    current_app.logger.info('index::login redirect')
     return redirect(url_for('login'))

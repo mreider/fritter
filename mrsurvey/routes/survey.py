@@ -1,13 +1,13 @@
 ﻿# -*- coding: utf-8 -*-
 
-from flask import request, flash, redirect, render_template, url_for
+from flask import request, flash, redirect, render_template, url_for, current_app
 from flask.ext.login import current_user, login_required, login_user
 from mrsurvey.models import UserWallet, Survey
 from mrsurvey.extensions import db
 
 @login_required
 def survey():
-    print '>> survey'
+    current_app.logger.info('survey')
     survey_id = request.args.get('survey_id')
     context = {}
 

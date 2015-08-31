@@ -1,13 +1,13 @@
 ﻿# -*- coding: utf-8 -*-
 
-from flask import redirect, url_for, flash, request, session, get_flashed_messages
+from flask import redirect, url_for, flash, request, session, current_app
 from flask_oauthlib.client import OAuthException
 from flask.ext.login import login_user
 from mrsurvey.extensions import db, google_auth
 from mrsurvey.models import User
 
 def authorized():
-    print '>> authorized'
+    current_app.logger.info('authorized')
 
     response = google_auth.authorized_response()
 
@@ -17,7 +17,10 @@ def authorized():
             request.args['error_description']
         ), 'error')
     elif type(response) == OAuthException:
-        flash('Error occures while redirecting after login', 'error')
+        current_app.logger.error('OAuthException: "{}: {}"'.format(
+            response.message,
+            response.data.get('error_description') if response.data else 'no descriptio'))
+        return redirect(url_for('logout'))
     else:
         session['google_token'] = (response['access_token'], '')
         me = google_auth.get('userinfo') or {}
@@ -35,7 +38,5 @@ def authorized():
             db.session.commit()
 
         login_user(user, remember=True)
-        get_flashed_messages()
-
 
     return redirect(url_for('home'))

@@ -1,7 +1,7 @@
 ﻿# -*- coding: utf-8 -*-
 
 import yaml
-from flask import session, render_template, url_for, request, flash
+from flask import session, render_template, url_for, request, flash, current_app
 from StringIO import StringIO
 from mrsurvey.models import Survey, Item
 from datetime import datetime
@@ -9,9 +9,7 @@ from mrsurvey.extensions import db
 
 
 def loadyaml():
-    print '>> loadyaml'
-
-    context = {'errors': []}
+    current_app.logger.info('index')
 
     if request.method == 'POST':
         yaml_file = request.files['yaml']
@@ -44,4 +42,4 @@ def loadyaml():
             else:
                 flash('Missing one of required fields: "name", "dollars", "items"', 'error')
 
-    return render_template('loadyaml.html', **context)
+    return render_template('loadyaml.html')
