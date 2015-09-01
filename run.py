@@ -1,6 +1,5 @@
 from mrsurvey import main
 import os
-import MySQLdb
 
-port = int(os.getenv("PORT"))
+port = int(os.getenv("PORT", 5000))
 main.app.run(host='0.0.0.0', port=port,debug=True)
