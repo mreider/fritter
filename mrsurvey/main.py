@@ -28,7 +28,10 @@ def init(name):
 
 def configure_app(app):
     app.config.from_object('mrsurvey.config.app_config')
-    app.config['SQLALCHEMY_DATABASE_URI'] = svc["uri"]
+    uriadd = svc["uri"]
+    if uriadd.endswith('?reconnect=true'):
+      uriadd = uriadd[:-15] 
+    app.config['SQLALCHEMY_DATABASE_URI'] = uriadd
 
     app.config['GOOGLE']['consumer_key'] = "335264890335-0lm8m9jus0p7h7186iu22dlevkqbqtgo.apps.googleusercontent.com"
     app.config['GOOGLE']['consumer_secret'] = "Jr38yO8jvuymtkYxvpruOoKK"
