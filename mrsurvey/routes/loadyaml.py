@@ -16,30 +16,37 @@ def loadyaml():
         if yaml_file and yaml_file.filename.endswith('yml'):
             buffer = StringIO()
             yaml_file.save(buffer)
-            data = yaml.load(buffer.getvalue())
 
-            if data.get('name') and data.get('dollars') and data.get('items') and len(data.get('items')):
-                survey = Survey.query.filter(Survey.name==data['name']).first()
+            try:
+                data = yaml.safe_load(buffer.getvalue())
 
-                if survey:
-                    flash('Survey with name "{}" already exists'.format(data['name']), 'error')
+                if data.get('name') and data.get('dollars') and data.get('items') and len(data.get('items')):
+                    survey = Survey.query.filter(Survey.name==data['name']).first()
+
+                    if survey:
+                        flash('Survey with name "{}" already exists'.format(data['name']), 'error')
+                    else:
+                        survey = Survey(
+                            name=data['name'],
+                            description=data['description'],
+                            dollars=data['dollars'],
+                            created_date=datetime.utcnow()
+                        )
+
+                        for item in data['items']:
+                            item = Item(name=item['name'], description=item['description'], price=item['price'])
+                            db.session.add(item)
+                            survey.items.append(item)
+
+                        db.session.add(survey)
+                        db.session.commit()
+                        flash('Survey <b>"{}"</b> succesfully added'.format(survey.name), 'success')
                 else:
-                    survey = Survey(
-                        name=data['name'],
-                        description=data['description'],
-                        dollars=data['dollars'],
-                        created_date=datetime.utcnow()
-                    )
-
-                    for item in data['items']:
-                        item = Item(name=item['name'], description=item['description'], price=item['price'])
-                        db.session.add(item)
-                        survey.items.append(item)
-
-                    db.session.add(survey)
-                    db.session.commit()
-                    flash('Survey <b>"{}"</b> succesfully added'.format(survey.name), 'success')
-            else:
-                flash('Missing one of required fields: "name", "dollars", "items"', 'error')
+                    flash('Missing one of required fields: "name", "dollars", "items"', 'error')
+            except Exception as ex:
+                flash('Error occures dirung YAML file processing: "{}"'.format(
+                    getattr(ex, 'message')) or getattr(ex, 'problem'),
+                    'error'
+                )
 
     return render_template('loadyaml.html')
