@@ -1,19 +1,11 @@
 # -*- coding: utf-8 -*-
 
 import os
+import logging
 from flask import Flask, session, json
 from mrsurvey.extensions import db, oauth, google_auth, login_manager
 from mrsurvey.routes import configure_routes
 from mrsurvey.models import User
-
-vcap = json.loads(os.environ['VCAP_SERVICES'])
-svc = vcap['cleardb'][0]['credentials']
-# host=svc["hostname"]
-# port=svc["port"]
-# password=svc["password"]
-# username=svc["username"]
-# name=svc["name"]
-# uri=svc["uri"]
 
 def init(name):
     app = Flask(name)
@@ -28,11 +20,28 @@ def init(name):
 
 def configure_app(app):
     app.config.from_object('mrsurvey.config.app_config')
-    app.config['SQLALCHEMY_DATABASE_URI'] = svc["uri"]
 
-    app.config['GOOGLE']['consumer_key'] = "335264890335-0lm8m9jus0p7h7186iu22dlevkqbqtgo.apps.googleusercontent.com"
-    app.config['GOOGLE']['consumer_secret'] = "Jr38yO8jvuymtkYxvpruOoKK"
+    platform = os.getenv('PLATFORM', app.config['PLATFORM'])
 
+    if not platform:
+        raise ValueError('PLATFORM must be defined either through config or through environment variable')
+
+    app.config['PLATFORM'] = platform
+
+    if app.config['PLATFORM'] == 'heroku':
+        app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('CLEARDB_DATABASE_URL')
+    elif app.config['PLATFORM'] == 'cf':
+        vcap = json.loads(os.environ['VCAP_SERVICES'])
+        svc = vcap['cleardb'][0]['credentials']
+        app.config['SQLALCHEMY_DATABASE_URI'] = svc["uri"]
+
+    if os.getenv('GOOGLE_CONSUMER_KEY') and os.getenv('GOOGLE_CONSUMER_SECRET'):
+        app.config['GOOGLE']['consumer_key'] = os.getenv('GOOGLE_CONSUMER_KEY')
+        app.config['GOOGLE']['consumer_secret'] = os.getenv('GOOGLE_CONSUMER_SECRET')
+    else:
+        raise ValueError('GOOGLE key/secret must be defined')
+
+    app.logger.setLevel(logging.DEBUG)
 
 def configure_extensions(app):
     db.init_app(app)
