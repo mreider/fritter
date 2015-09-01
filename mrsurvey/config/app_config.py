@@ -12,4 +12,4 @@ GOOGLE = {
 
 REMEMBER_COOKIE_DURATION6=3600
 
-PLATFORM='cf' # 'cf'
+PLATFORM='cf' # 'heroku'
