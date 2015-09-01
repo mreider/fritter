@@ -33,7 +33,13 @@ def configure_app(app):
     elif app.config['PLATFORM'] == 'cf':
         vcap = json.loads(os.environ['VCAP_SERVICES'])
         svc = vcap['cleardb'][0]['credentials']
-        app.config['SQLALCHEMY_DATABASE_URI'] = svc["uri"]
+
+        uriadd = svc["uri"]
+
+        if uriadd.endswith('?reconnect=true'):
+            uriadd = uriadd[:-15]
+
+        app.config['SQLALCHEMY_DATABASE_URI'] = uriadd
 
     if os.getenv('GOOGLE_CONSUMER_KEY') and os.getenv('GOOGLE_CONSUMER_SECRET'):
         app.config['GOOGLE']['consumer_key'] = os.getenv('GOOGLE_CONSUMER_KEY')
