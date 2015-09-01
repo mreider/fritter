@@ -20,11 +20,26 @@ def init(name):
 
 def configure_app(app):
     app.config.from_object('mrsurvey.config.app_config')
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('CLEARDB_DATABASE_URL')
+
+    platform = os.getenv('PLATFORM', app.config['PLATFORM'])
+
+    if not platform:
+        raise ValueError('PLATFORM must be defined either through config or through environment variable')
+
+    app.config['PLATFORM'] = platform
+
+    if app.config['PLATFORM'] == 'heroku':
+        app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('CLEARDB_DATABASE_URL')
+    elif app.config['PLATFORM'] == 'cf':
+        vcap = json.loads(os.environ['VCAP_SERVICES'])
+        svc = vcap['cleardb'][0]['credentials']
+        app.config['SQLALCHEMY_DATABASE_URI'] = svc["uri"]
 
     if os.getenv('GOOGLE_CONSUMER_KEY') and os.getenv('GOOGLE_CONSUMER_SECRET'):
         app.config['GOOGLE']['consumer_key'] = os.getenv('GOOGLE_CONSUMER_KEY')
         app.config['GOOGLE']['consumer_secret'] = os.getenv('GOOGLE_CONSUMER_SECRET')
+    else:
+        raise ValueError('GOOGLE key/secret must be defined')
 
     app.logger.setLevel(logging.DEBUG)
 
