@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import logging
 from flask import Flask, session
 from mrsurvey.extensions import db, oauth, google_auth, login_manager
 from mrsurvey.routes import configure_routes
@@ -25,6 +26,7 @@ def configure_app(app):
         app.config['GOOGLE']['consumer_key'] = os.getenv('GOOGLE_CONSUMER_KEY')
         app.config['GOOGLE']['consumer_secret'] = os.getenv('GOOGLE_CONSUMER_SECRET')
 
+    app.logger.setLevel(logging.DEBUG)
 
 def configure_extensions(app):
     db.init_app(app)
@@ -41,6 +43,7 @@ def configure_extensions(app):
 
     login_manager.init_app(app)
     login_manager.login_view = '/login'
+    login_manager.login_message = None
 
     @login_manager.user_loader
     def load_user(userid):
