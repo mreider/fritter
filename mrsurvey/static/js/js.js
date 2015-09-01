@@ -154,19 +154,26 @@ this.SurveyPageModel = function(config) {
 
     function showWhoBoughtSame(itemId, name, users) {
         if (users.length) {
-            var template = $('#who-bought').html();
+            var template = $('#who-bought').html(),
+                $whoBought = $('[data-item-id="' + itemId + '"] .who-boughts');
             Mustache.parse(template);
             $node = $(Mustache.render(template, {'name': name, 'users': users}));
 
-            $('.notification .content').html('').append($node);
-
-            $('.notification').fadeIn();
+            $whoBought.html('').append($node);
+            $whoBought.parents('.who-bought-wrap').show();
+            $whoBought.prev().trigger('click');
         }
     }
 
     function purchaseItem(e) {
-        var itemId = $(e.currentTarget).parents('.item').attr('data-item-id');
+        var $parent = $(e.currentTarget).parents('.item'),
+            itemId = $parent.attr('data-item-id'),
+            $whoBought = $parent.find('.who-bought-wrap');
+
+        $whoBought.find('.who-boughts').removeClass('expanded').hide()
+        $whoBought.hide();
         pageLoading(true);
+
         $.ajax({
             url: _config.itemsServiceUrl,
             data: JSON.stringify({action: 'buy', item_id: itemId, survey_id: getQS('survey_id')}),
@@ -196,8 +203,14 @@ this.SurveyPageModel = function(config) {
     }
 
     function sellItem(e) {
-        var itemId = $(e.currentTarget).parents('.item').attr('data-item-id');
+        var $parent = $(e.currentTarget).parents('.item'),
+            itemId = $parent.attr('data-item-id'),
+            $whoBought = $parent.find('.who-bought-wrap');
+
+        $whoBought.find('.who-boughts').removeClass('expanded').hide()
+        $whoBought.hide();
         pageLoading(true);
+
         $.ajax({
             url: _config.itemsServiceUrl,
             data: JSON.stringify({action: 'sell', item_id: itemId, survey_id: getQS('survey_id')}),
@@ -243,10 +256,6 @@ this.SurveyPageModel = function(config) {
             loadComments(e);
         })
         .on('click', _config.commentAddSelector, addComment)
-
-        $('.notification .close').on('click', function() {
-            $('.notification').fadeOut();
-        });
     }
 
     bind();

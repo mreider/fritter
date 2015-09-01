@@ -125,7 +125,7 @@ a.button[disabled]:focus {
     overflow: auto;
 }
 
-.notification .close {
+.close-button {
     cursor: pointer;
     color: #fff;
     border: 1px solid #AEAEAE;
@@ -142,7 +142,7 @@ a.button[disabled]:focus {
     padding-bottom: 12px;
 }
 
-.notification .close:before {
+.close-button:before {
     content: "×";
 }
 
@@ -189,4 +189,12 @@ a.button[disabled]:focus {
     background-color: #ccc;
     z-index: 3000;
     opacity: 0.3
+}
+
+.text-right {
+    text-align: right;
+}
+
+.who-bought-wrap {
+    padding-bottom: 15px;
 }

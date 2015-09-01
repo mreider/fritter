@@ -19,10 +19,6 @@
     </div>
   </div>
 
-  <div class="notification" style="display:none">
-    <div class="close"></div>
-    <div class="content"></div>
-  </div>
   {%- endblock container -%}
 
 {%- block page_javascript -%}
@@ -38,6 +34,10 @@
             <a class="button button-purchase" href="javascript:void(0)">Purchase</a>
             <a class="button button-sell" href="javascript:void(0)">Sell</a>
         </div>
+      </div>
+      <div class="who-bought-wrap collapse" style="display: none">
+        <div class="collapse-head">See who also bought this item:</div>
+        <div class="who-boughts collapse-body" style="display: none"></div>
       </div>
       <div class="comments-wrap collapse">
         <h5 class="comments-head collapse-head">Comments (<span class="comments-count">{{comments_count}}</span>)</h5>
@@ -66,7 +66,6 @@
   </script>
 
   <script type="text/template" id="who-bought">
-    <h5>See who also bought item "{{name}}":</h5>
     {{#users}}
       <div class="user-also-bought">
         <div class="bought-autor">
