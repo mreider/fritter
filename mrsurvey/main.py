@@ -2,7 +2,7 @@
 
 import os
 import logging
-from flask import Flask, session
+from flask import Flask, session, json
 from mrsurvey.extensions import db, oauth, google_auth, login_manager
 from mrsurvey.routes import configure_routes
 from mrsurvey.models import User
