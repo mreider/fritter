@@ -1,4 +1,6 @@
-﻿name: survey1
-description: Thie survey produce error - missing `items`. Other required fields: `name`, `dollars`.
+name: survey1
+description: "This survey produces an error - missing `items`. Other required fields: `name`, `dollars`.
+              Do not forget to wrap line in quotes if it contains colons!
+              And if it is logs like this one."
 dollars: 100
 items:
