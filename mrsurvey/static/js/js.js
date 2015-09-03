@@ -120,7 +120,7 @@ this.SurveysModel = function(config) {
 
         var surveyId = $element.attr('data-survey-id');
 
-        if (!getQS('survey_id')) {
+        if (getQS('survey_id') != surveyId) {
             history.pushState({}, "Survey loading...", "?survey_id=" + surveyId);
         }
         loadSurveyWallet(surveyId, function() { loadSurveyItems(surveyId); });
