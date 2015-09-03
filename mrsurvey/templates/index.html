@@ -1,80 +1,82 @@
 <!DOCTYPE html>
-<html>
-  <head>
-      {% set title='Odesk sample application' %}
+<html lang="en">
 
-      {%- block head_meta -%}
-      <meta charset="utf-8">
-      <meta name="description" content="It is actually a survey. User must choose which things are most important to spend money on. This tells me if they actually want a lot of less expensive things or one very expensive thing.">
-      <meta name="author" content="Alex P">
-      {%- endblock head_meta -%}
+<head>
+    {%- block head_meta -%}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="It is actually a survey. User must choose which things are most important to spend money on. This tells me if they actually want a lot of less expensive things or one very expensive thing.">
+    <meta name="author" content="Alex P">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {%- endblock head_meta -%}
 
-      {%- block head_title -%}
-      <title>{{ title }}</title>
-      {%- endblock head_title -%}
+    {%- block head_title -%}
+    <title>Surveys::Home</title>
+    {%- endblock head_title -%}
 
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Raleway:400,500,600,700,300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='lib/bootstrap/css/bootstrap.min.css')}}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app.v1.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/css.css') }}" />
 
-      {%- block head_css -%}
-      <link rel="stylesheet" href="{{ url_for('static', filename='lib/skeleton/css/normalize.css') }}">
-      <link rel="stylesheet" href="{{ url_for('static', filename='lib/skeleton/css/skeleton.css') }}">
-      <link rel="stylesheet" href="{{ url_for('static', filename='css/css.css') }}">
-      {%- endblock head_css -%}
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 
-      <link rel="icon" type="image/x-icon" href="{{ url_for('favicon') }}" />
-  </head>
+</head>
 
-  <body>
-      <div class="page-loading loading" style="display: none"></div>
-
-      <div class="container top-user-panel">
-        <div class="row">
-          <div class="two columns user-image">
-            <img src="{{ current_user.avatar }}"/>
-          </div>
-          <div class="five columns user-name">
-            Welcome {{ current_user.name }}!
-          </div>
-          <div class="two columns user-money">
-            {%- block user_info_column -%}
-            {%- endblock user_info_column -%}
-          </div>
-          <div class="three columns">
-            {%- block user_last_column -%}
-            {%- endblock user_last_column -%}
-            <a class="button button-primary pull-right" href="{{ url_for('logout') }}" style="display: none">Logout</a>
-          </div>
-
-        </div>
+<body>
+  <div class="loading-container" style="display: none">
+    <div class="loading">
+      <div class="l1">
+        <div></div>
       </div>
-
-      {%- with flashes = get_flashed_messages(with_categories=true) -%}
-      {%- if flashes -%}
-      <div class="container flashes">
-        {%- for category, flash in flashes -%}
-        <div class="row flash {{category}}">
-          <div class="twelve columns">
-            {{ flash |safe }}
-          </div>
-        </div>
-         {%- endfor -%}
+      <div class="l2">
+        <div></div>
       </div>
-      {%- endif -%}
-      {%- endwith -%}
-
-      {%- block container_wrapper -%}
-      <div class="container">
-      {%- block container -%}
-      {%- endblock container -%}
+      <div class="l3">
+        <div></div>
       </div>
-      {%- endblock container_wrapper -%}
+      <div class="l4">
+        <div></div>
+      </div>
+    </div>
+  </div>
 
-      {%- block page_javascript -%}
-      <script src="{{ url_for('static', filename='lib/jquery/jquery-2.1.4.min.js') }}" type="text/javascript"></script>
-      <script src="{{ url_for('static', filename='lib/mustache/mustache.min.js') }}" type="text/javascript"></script>
+  <aside class="left-panel">
+    <div class="user text-center">
+      <img src="{{ current_user.avatar }}" class="img-circle" alt="{{ current_user.name }}">
+      <h4 class="user-name">{{ current_user.name }}</h4>
 
-      <script src="{{ url_for('static', filename='js/js.js') }}" type="text/javascript"></script>
-      {%- endblock -%}
-  </body>
+      <h4 class="user-info-1">
+      {%- block user_info_column -%}
+      {%- endblock user_info_column -%}
+      </h4>
+    </div>
+
+    <nav class="navigation surveys-nav">
+      {%- block surveys_list -%}
+      {%- endblock surveys_list -%}
+    </nav>
+  </aside>
+
+  <section class="content">
+    <div class="warper container-fluid">
+      {%- block content -%}
+      {%- endblock content -%}
+    </div>
+  </section>
+
+  {%- block page_javascript -%}
+  <script src="{{ url_for('static', filename='lib/jquery/jquery-2.1.4.min.js') }}" type="text/javascript"></script>
+  <script src="{{ url_for('static', filename='lib/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
+  <script src="{{ url_for('static', filename='lib/mustache/mustache.min.js') }}" type="text/javascript"></script>
+
+  <script src="{{ url_for('static', filename='js/js.js') }}" type="text/javascript"></script>
+  {%- endblock -%}
+</body>
+
 </html>

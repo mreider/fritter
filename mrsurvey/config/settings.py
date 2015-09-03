@@ -31,12 +31,6 @@ ROUTES = {
         'methods': ['GET']
     },
 
-    'routes.survey': {
-        'endpoint': 'survey',
-        'route': '/survey',
-        'methods': ['GET', 'POST']
-    },
-
     'routes.loadyaml': {
         'endpoint': 'loadyaml',
         'route': '/loadyaml',

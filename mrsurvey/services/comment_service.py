@@ -20,7 +20,7 @@ class CommentAPI(BaseAPI):
         if item_id:
             comments = (Comment.query
                 .filter(Comment.item_id==item_id)
-                .order_by(desc(Comment.posted)).all())
+                .order_by(Comment.posted).all())
             return self.response_ok(data={
                 'comments': [comment.serialize() for comment in comments]
             })

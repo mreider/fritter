@@ -1,8 +1,10 @@
+// FUNCTIONS
+
 function pageLoading(loading) {
     if (loading) {
-        $('.page-loading').show();
+        $('.loading-container').show();
     } else {
-        $('.page-loading').hide();
+        $('.loading-container').hide();
     }
 }
 
@@ -12,39 +14,67 @@ function getQS(name) {
         results = regex.exec(location.search);
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
-$(function() {
-    $('.flashes .flash').on('click', function() { $(this).fadeOut('slow'); });
 
-});
+// SINGLE PAGE MODEL
 
-this.SurveyPageModel = function(config) {
+this.SurveysModel = function(config) {
     var self = this;
     var _defaultConfig = {
         itemsServiceUrl: '',
         commentsServiceUrl: '',
-
-        parent: '.items-list',
-        purchaseSelector: '.button-purchase',
-        sellSelector: '.button-sell',
-        commentsCountSelector: '.comments-count',
-        commentsSelector: '.comments',
-        commentAddSelector: '.add-comment-send',
     };
     var _config = $.extend({}, _defaultConfig, config);
 
-    var doNotShowWhoBought = false;
 
-    function getAllItems() {
+    // HANDLERS
+
+    function loadSurveyWallet(surveyId, success, fail) {
         pageLoading(true);
+        $('user-amount').hide();
+
+        var resetPageLoading = true;
 
         $.ajax({
             url: _config.itemsServiceUrl,
-            data: {survey_id: getQS('survey_id')},
+            data: {action: 'wallet', survey_id: surveyId || getQS('survey_id')},
             method: 'GET'
         })
-        .done(function(respose) {
-            if (respose.success && respose.data) {
-                var items = respose.data.items,
+        .done(function(response) {
+            if (response.success && response.data) {
+                var wallet = response.data.wallet;
+                $('.user-amount .amount').html(wallet.dollars);
+                $('.user-amount').show();
+
+                if (success) { resetPageLoading = false; }
+
+                (success || $.noop)();
+            } else {
+                 if (response.message) { alert(response.message); }
+                (fail || $.noop)();
+            }
+        })
+        .fail(function(response) {
+            alert('Something goes wrong with items list!');
+            (fail || $.noop)();
+        })
+        .always(function(response) {
+            if (resetPageLoading) { pageLoading(false); }
+        });
+    }
+
+    function loadSurveyItems(surveyId, success, fail) {
+        pageLoading(true);
+
+        $('.select-survey').hide();
+
+        $.ajax({
+            url: _config.itemsServiceUrl,
+            data: {survey_id: surveyId || getQS('survey_id')},
+            method: 'GET'
+        })
+        .done(function(response) {
+            if (response.success && response.data) {
+                var items = response.data.items,
                     template = $('#item-template').html();
 
                 Mustache.parse(template);
@@ -54,29 +84,57 @@ this.SurveyPageModel = function(config) {
                         $node = $(Mustache.render(template, item));
 
                     if (item.purchased) {
-                        $node.find(_config.purchaseSelector).attr('disabled', 'disabled');
-                        $node.find(_config.sellSelector).removeAttr('disabled');
+                        $node.find('.button-purchase').attr('disabled', 'disabled');
+                        $node.find('.button-sell').removeAttr('disabled');
                     } else {
-                        $node.find(_config.purchaseSelector).removeAttr('disabled');
-                        $node.find(_config.sellSelector).attr('disabled', 'disabled');
+                        $node.find('.button-purchase').removeAttr('disabled');
+                        $node.find('.button-sell').attr('disabled', 'disabled');
                     }
 
-                    $(_config.parent).append($node);
+                    $('.items-list').append($node);
                 }
+                $('.items-list').show();
+
+                (success || $.noop)();
+            } else {
+                if (response.message) { alert(response.message); }
+                (fail || $.noop)();
             }
         })
-        .fail(function(respose) {
-            alert('Something goes wrong with items list!')
+        .fail(function(response) {
+            alert('Something goes wrong with items list!');
+            (fail || $.noop)();
+            pageLoading(false);
         })
-        .always(function(respose) {
+        .always(function(response) {
             pageLoading(false);
         });
     }
 
-    function loadComments(e) {
-        var $head = $(e.currentTarget),
-            $body = $head.next('.collapse-body');
-        var itemId = $head.parents('.item').attr('data-item-id');
+    function loadSurvey(e) {
+        $('.surveys-list li').removeClass('active');
+        $('.items-list').html('');
+        $element = $(e.currentTarget);
+        $element.parent().addClass('active');
+        document.title = "Surveys::" + $(e.currentTarget).find('.survey-name').text();
+
+        var surveyId = $element.attr('data-survey-id');
+
+        if (!getQS('survey_id')) {
+            history.pushState({}, "Survey loading...", "?survey_id=" + surveyId);
+        }
+        loadSurveyWallet(surveyId, function() { loadSurveyItems(surveyId); });
+    }
+
+    function loadComments(e, success, fail) {
+        var $item = $(e.currentTarget).parents('.item'),
+            $body = $($(e.currentTarget).attr('href')).find('.item-comments-body'),
+            itemId = $item.attr('data-item-id');
+
+
+        if ($item.find('.comment').length) {
+            return;
+        }
 
         if (itemId) {
             pageLoading(true);
@@ -86,25 +144,27 @@ this.SurveyPageModel = function(config) {
                 method: 'GET'
             })
             .done(function(response) {
-                $body.removeClass('loading');
-
                 if (response.success && response.data) {
-
                     var comments = response.data.comments,
                         template = $('#comment-template').html();
                     Mustache.parse(template);
 
+                    $body.html('');
                     for(var i = 0; i < comments.length; i++) {
                         var comment = comments[i],
                             $node = $(Mustache.render(template, comment));
                             $body.append($node);
                     }
-                }
 
-                $body.append($('#add-comment-template').html());
+                    (success || $.noop)();
+                } else {
+                    if (response.message) { alert(response.message); }
+                    (fail || $.noop)();
+                }
             })
             .fail(function(response) {
                 alert('Something goes wrong with comments!')
+                (fail || $.noop)();
             })
             .always(function(response) {
                 pageLoading(false);
@@ -115,7 +175,7 @@ this.SurveyPageModel = function(config) {
     function addComment(e) {
         var $item = $(e.currentTarget).parents('.item'),
             itemId = $item.attr('data-item-id'),
-            comment = $item.find('.add-comment-content').val();
+            comment = $item.find('.panel-footer .comment-content').val();
 
         pageLoading(true);
 
@@ -129,17 +189,13 @@ this.SurveyPageModel = function(config) {
             if (response.success) {
                 var comment = response.data.comment,
                     template = $('#comment-template').html(),
-                    $comments = $item.find('.comments'),
-                    $lastComment = $item.find('.comments .comment').last(),
+                    $comments = $item.find('.item-comments-body'),
                     $node = $(Mustache.render(template, comment));
 
-                if ($lastComment.length) {
-                    $lastComment.after($node);
-                } else {
-                    $comments.prepend($node);
-                }
-                $item.find('.add-comment-content').val('');
-                $item.find('.comments-count').html($item.find('.comments .comment').length);
+                $comments.append($node);
+
+                $item.find('.panel-footer .comment-content').val('');
+                $item.find('.comments-count').html($item.find('.item-comments-body .comment').length);
             } else {
                 alert(response.message);
             }
@@ -152,26 +208,10 @@ this.SurveyPageModel = function(config) {
         });
     }
 
-    function showWhoBoughtSame(itemId, name, users) {
-        if (users.length) {
-            var template = $('#who-bought').html(),
-                $whoBought = $('[data-item-id="' + itemId + '"] .who-boughts');
-            Mustache.parse(template);
-            $node = $(Mustache.render(template, {'name': name, 'users': users}));
-
-            $whoBought.html('').append($node);
-            $whoBought.parents('.who-bought-wrap').show();
-            $whoBought.prev().trigger('click');
-        }
-    }
-
     function purchaseItem(e) {
-        var $parent = $(e.currentTarget).parents('.item'),
-            itemId = $parent.attr('data-item-id'),
-            $whoBought = $parent.find('.who-bought-wrap');
+        var $item = $(e.currentTarget).parents('.item'),
+            itemId = $item.attr('data-item-id');
 
-        $whoBought.find('.who-boughts').removeClass('expanded').hide()
-        $whoBought.hide();
         pageLoading(true);
 
         $.ajax({
@@ -182,14 +222,11 @@ this.SurveyPageModel = function(config) {
         })
         .done(function(response) {
             if (response.success) {
-                var purchase = response.data.purchase,
-                    $item = $(e.currentTarget).parents('.item');
-                $('.user-money .amount').html(response.data.balance)
+                var purchase = response.data.purchase;
+                $('.user-amount .amount').html(response.data.balance)
 
-                $item.find(_config.purchaseSelector).attr('disabled', 'disabled');
-                $item.find(_config.sellSelector).removeAttr('disabled');
-
-                showWhoBoughtSame(itemId, purchase.item.name, response.data.who_bought);
+                $item.find('.button-purchase').attr('disabled', 'disabled');
+                $item.find('.button-sell').removeAttr('disabled');
             } else {
                 alert(response.message);
             }
@@ -203,12 +240,9 @@ this.SurveyPageModel = function(config) {
     }
 
     function sellItem(e) {
-        var $parent = $(e.currentTarget).parents('.item'),
-            itemId = $parent.attr('data-item-id'),
-            $whoBought = $parent.find('.who-bought-wrap');
+        var $item = $(e.currentTarget).parents('.item'),
+            itemId = $item.attr('data-item-id');
 
-        $whoBought.find('.who-boughts').removeClass('expanded').hide()
-        $whoBought.hide();
         pageLoading(true);
 
         $.ajax({
@@ -219,12 +253,11 @@ this.SurveyPageModel = function(config) {
         })
         .done(function(response) {
             if (response.success) {
-                var purchase = response.data.purchase,
-                    $item = $(e.currentTarget).parents('.item');
-                $('.user-money .amount').html(response.data.balance)
+                var purchase = response.data.purchase;
+                $('.user-amount .amount').html(response.data.balance)
 
-                $item.find(_config.purchaseSelector).removeAttr('disabled');
-                $item.find(_config.sellSelector).attr('disabled', 'disabled');
+                $item.find('.button-purchase').removeAttr('disabled');
+                $item.find('.button-sell').attr('disabled', 'disabled');
             } else {
                 alert(response.message);
             }
@@ -237,29 +270,32 @@ this.SurveyPageModel = function(config) {
         });
     }
 
+    // HANDLERS
+
+
     function bind() {
-        getAllItems();
+        $('.surveys-list').on('click', 'a[data-survey-id]', loadSurvey)
 
-        var $parent = $(_config.parent);
-        $parent
-        .on('click', '.collapse .collapse-head', function(e) {
-            $(this).parent().find('.collapse-body').toggleClass('expanded').slideToggle('fast');
-            $(this).parent().toggleClass('active');
-            e.preventDefault();
-        })
-        .on('click', _config.purchaseSelector + ':not([disabled])', purchaseItem)
-        .on('click', _config.sellSelector + ':not([disabled])', sellItem)
-        .on('click', '.comments-head', function(e) {
-            $body = $(this).next();
-            $body.html('').addClass('loading');
-
-            loadComments(e);
-        })
-        .on('click', _config.commentAddSelector, addComment)
+        $('.items-list')
+            .on('click', '.comments-header', loadComments)
+            .on('click', '.add-comment', addComment)
+            .on('click', '.button-purchase', purchaseItem)
+            .on('click', '.button-sell', sellItem);
     }
 
-    bind();
+    self.init = function() {
+        bind();
+
+        if (getQS('survey_id')) {
+            loadSurvey({currentTarget: $('.surveys-list li a[data-survey-id="' + getQS('survey_id') + '"]')});
+        }
+    };
+
+    self.init();
 };
 
-this.HomePageModel = function(config) {
-};
+// COMMON INITIALIZER
+
+$(function() {
+    $('.flashes .flash').on('click', function() { $(this).fadeOut('slow'); });
+});

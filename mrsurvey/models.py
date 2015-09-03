@@ -61,6 +61,13 @@ class UserWallet(db.Model):
     dollars = db.Column(db.Integer)
     created_date = db.Column(db.DateTime, default=datetime.utcnow)
 
+    def serialize(self):
+        return {
+            'user_id': self.user_id,
+            'survey_id': self.survey_id,
+            'dollars': self.dollars
+        }
+
 
 class Item(db.Model):
     __tablename__ = 'items'

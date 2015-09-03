@@ -4,24 +4,18 @@
 <title>Load YAML file and create new survey</title>
 {%- endblock head_title -%}
 
-{%- block user_last_column -%}
-<a href="{{ url_for('home') }}">&#8592; Back to surveys list</a>
-{%- endblock user_last_column -%}
-
-{%- block container -%}
+{%- block content -%}
   <div class="items-panel">
     <div class="row">
-      <div class="twelve columns">
+      <div class=".col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <form name="yaml_upload {{ 'errors' if errors else '' }}" method="POST" enctype="multipart/form-data">
-          <div class="row">
+          <div class="form-group">
             <label>Please choose YAML file to upload</label>
-            <input type="file" id="yaml" name="yaml"/>
+            <input type="file" id="yaml" name="yaml" class="form-control" />
           </div>
-          <div class="row">
-            <input type="submit" value="Upload YAML"/>
-          </div>
+          <input type="submit" value="Upload YAML" class="btn btn-default"/>
         </form>
       </div>
     </div>
   </div>
-{%- endblock container -%}
+{%- endblock content -%}
