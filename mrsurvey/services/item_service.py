@@ -62,7 +62,7 @@ class ItemAPI(BaseAPI):
             wallet = UserWallet.query.filter(UserWallet.user==current_user).filter(UserWallet.survey_id==survey_id).one()
 
             if wallet.dollars < item.price:
-                return self.response_fail('You do not have enough dollars')
+                return self.response_fail('You do not have enough money.\n\nConsider selling some items first.')
             else:
                 wallet.dollars -= item.price
                 purchase = Purchase(
@@ -86,7 +86,7 @@ class ItemAPI(BaseAPI):
                         .one())
 
             if not purchase:
-                return self.response_fail('You do not have this thing')
+                return self.response_fail('You do not have this item')
             else:
                 wallet = (UserWallet.query
                           .filter(UserWallet.user==current_user)
