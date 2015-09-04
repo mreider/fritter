@@ -59,7 +59,7 @@ this.SurveysModel = function(config) {
             }
         })
         .fail(function(response) {
-            alert('There appears to be an error with one of the items.\n\nHmmmm...');
+            alert('There appears to be an error with one of the items.');
             (fail || $.noop)();
         })
         .always(function(response) {
@@ -130,6 +130,7 @@ this.SurveysModel = function(config) {
 
         if (!surveyId) {
             window.location = '/';
+            return;
         }
 
         if (getQS('survey_id') != surveyId) {
