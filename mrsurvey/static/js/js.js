@@ -20,7 +20,7 @@ function updateDynControl() {
     $('[data-toggle="tooltip"]').tooltip();
 }
 
-loginRejected(response, message) {
+function loginRejected(response, message) {
     if (response && response.status === 0 && response.state() === 'rejected') {
         window.location = '/';
         return
