@@ -129,6 +129,10 @@ this.SurveysModel = function(config) {
 
         var surveyId = $element.attr('data-survey-id');
 
+        if (!surveyId) {
+            window.location = '/';
+        }
+
         if (getQS('survey_id') != surveyId) {
             history.pushState({}, "Survey loading...", "?survey_id=" + surveyId);
         }

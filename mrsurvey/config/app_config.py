@@ -10,6 +10,6 @@ GOOGLE = {
     'consumer_secret': 'from env vars'
 }
 
-REMEMBER_COOKIE_DURATION6=3600
+REMEMBER_COOKIE_DURATION=3600
 
 PLATFORM='cf' # 'heroku'
