@@ -22,6 +22,7 @@ function updateDynControl() {
 
 function loginRejected(response, message) {
     if (response && response.status === 0 && response.state() === 'rejected') {
+        alert('You login was expired, relogin please');
         window.location = '/';
         return
     }
