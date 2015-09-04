@@ -23,21 +23,25 @@ def authorized():
             response.data.get('error_description') if response.data else 'no descriptio'))
         return redirect(url_for('logout'))
     else:
-        session['google_token'] = (response['access_token'], '')
-        me = google_auth.get('userinfo') or {}
+        try:
+            session['google_token'] = (response['access_token'], '')
+            me = google_auth.get('userinfo') or {}
 
-        user = User.query.filter(User.email == me.data['email']).first()
+            user = User.query.filter(User.email == me.data['email']).first()
 
-        if not user:
-            user = User(
-                name=' '.join((me.data['given_name'], me.data['family_name'])),
-                email=me.data['email'],
-                avatar=me.data['picture']
-            )
+            if not user:
+                user = User(
+                    name=' '.join((me.data['given_name'], me.data['family_name'])),
+                    email=me.data['email'],
+                    avatar=me.data['picture']
+                )
 
-            db.session.add(user)
-            db.session.commit()
+                db.session.add(user)
+                db.session.commit()
 
-        login_user(user, remember=True)
+            login_user(user, remember=True)
+
+        except Exception as ex:
+            current_app.logger.error('AUTHORIZED: Exception occurs: "{}"'.format(ex))
 
     return redirect(url_for('home'))
