@@ -54,7 +54,10 @@ def configure_extensions(app):
 
     @app.teardown_request
     def shutdown_session(exception=None):
-        db.session.remove()
+        try:
+            db.session.remove()
+        except Exception as ex:
+            app.logger.error('SESSION SHUTDOWN: Error: {}'.format(str(ex)))
 
     oauth.init_app(app)
 
@@ -69,10 +72,15 @@ def configure_extensions(app):
     @login_manager.user_loader
     def load_user(userid):
         result = None
-        try:
-            result = User.query.get(int(userid))
-        except Exception as ex:
-            app.logger.error('USER GETTER: Error occurs while retrieving user by id {}, reason: {}'.format(userid, str(ex)))
+
+        for try_no in range(5):
+            try:
+                result = User.query.get(int(userid))
+            except Exception as ex:
+                app.logger.error('USER GETTER: Error occurs on try {}, user by id {}, reason: {}'.format(try_no, userid, str(ex)))
+
+            if result:
+                break
 
         return result
 

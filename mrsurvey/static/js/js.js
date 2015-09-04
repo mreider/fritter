@@ -100,11 +100,11 @@ this.SurveysModel = function(config) {
                         $node = $(Mustache.render(template, item));
 
                     if (item.purchased) {
-                        $node.find('.button-purchase').attr('disabled', 'disabled');
-                        $node.find('.button-sell').removeAttr('disabled');
+                        $node.find('.button-purchase').attr('disabled', 'disabled').addClass('disabled');
+                        $node.find('.button-sell').removeAttr('disabled').removeClass('disabled');
                     } else {
-                        $node.find('.button-purchase').removeAttr('disabled');
-                        $node.find('.button-sell').attr('disabled', 'disabled');
+                        $node.find('.button-purchase').removeAttr('disabled').removeClass('disabled');
+                        $node.find('.button-sell').attr('disabled', 'disabled').addClass('disabled');
                     }
 
                     $('.items-list').append($node);
@@ -245,6 +245,10 @@ this.SurveysModel = function(config) {
     }
 
     function purchaseItem(e) {
+        if ((e.currentTarget).attr('disabled')) {
+            return;
+        }
+
         var $item = $(e.currentTarget).parents('.item'),
             itemId = $item.attr('data-item-id');
 
@@ -261,8 +265,8 @@ this.SurveysModel = function(config) {
                 var purchase = response.data.purchase;
                 $('.user-amount .amount').html(response.data.balance)
 
-                $item.find('.button-purchase').attr('disabled', 'disabled');
-                $item.find('.button-sell').removeAttr('disabled');
+                $item.find('.button-purchase').attr('disabled', 'disabled').addClass('disabled');
+                $item.find('.button-sell').removeAttr('disabled').removeClass('disabled');
 
                 renderWhoBought($item.find('.who-bought-body'), response.data.who_bought);
             } else {
@@ -278,6 +282,10 @@ this.SurveysModel = function(config) {
     }
 
     function sellItem(e) {
+        if ((e.currentTarget).attr('disabled')) {
+            return;
+        }
+
         var $item = $(e.currentTarget).parents('.item'),
             itemId = $item.attr('data-item-id');
 
@@ -294,8 +302,8 @@ this.SurveysModel = function(config) {
                 var purchase = response.data.purchase;
                 $('.user-amount .amount').html(response.data.balance)
 
-                $item.find('.button-purchase').removeAttr('disabled');
-                $item.find('.button-sell').attr('disabled', 'disabled');
+                $item.find('.button-purchase').removeAttr('disabled').addClass('disabled');
+                $item.find('.button-sell').attr('disabled', 'disabled').removeClass('disabled');
 
                 renderWhoBought($item.find('.who-bought-body'), response.data.who_bought);
             } else {

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from flask import session, render_template, redirect, url_for, current_app
-from mrsurvey.flask_login import login_required, current_user
+from flask.ext.login import login_required, current_user
 from mrsurvey.models import UserWallet, Survey
 
 @login_required

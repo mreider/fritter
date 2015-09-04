@@ -2,7 +2,7 @@
 
 from flask import redirect, url_for, flash, request, session, current_app, render_template
 from flask_oauthlib.client import OAuthException
-from mrsurvey.flask_login import login_user
+from flask.ext.login import login_user
 from mrsurvey.extensions import db, google_auth
 from mrsurvey.models import User
 
