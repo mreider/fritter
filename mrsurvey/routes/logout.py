@@ -5,6 +5,7 @@ from flask.ext.login import logout_user
 
 def logout():
     current_app.logger.info('logout')
+    session.pop('google_token')
     get_flashed_messages()
     logout_user()
     return redirect(url_for('index'))
