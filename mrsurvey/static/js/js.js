@@ -30,7 +30,7 @@ this.SurveysModel = function(config) {
 
     function loadSurveyWallet(surveyId, success, fail) {
         pageLoading(true);
-        $('user-amount').hide();
+        $('.user-amount').hide();
 
         var resetPageLoading = true;
 
@@ -116,14 +116,19 @@ this.SurveysModel = function(config) {
         $('.items-list').html('');
         $element = $(e.currentTarget);
         $element.parent().addClass('active');
-        document.title = "Surveys::" + $(e.currentTarget).find('.survey-name').text();
+        var surveyName = $(e.currentTarget).find('.survey-name').text();
+        document.title = "Surveys::" + surveyName;
+        $('.top-head .survey-name').html(surveyName);
 
         var surveyId = $element.attr('data-survey-id');
 
         if (getQS('survey_id') != surveyId) {
             history.pushState({}, "Survey loading...", "?survey_id=" + surveyId);
         }
-        loadSurveyWallet(surveyId, function() { loadSurveyItems(surveyId); });
+        loadSurveyWallet(surveyId, function() {
+            loadSurveyItems(surveyId);
+            $('aside.left-panel').removeClass('collapsed');
+        });
     }
 
     function loadComments(e, success, fail) {
@@ -298,4 +303,27 @@ this.SurveysModel = function(config) {
 
 $(function() {
     $('.flashes .flash').on('click', function() { $(this).fadeOut('slow'); });
+
+    //Aside collapse/expand
+    $(document).on('click', '.navbar-toggle', function(){
+        $('aside.left-panel').toggleClass('collapsed');
+    });
+
+    //Aside Navigation Menu
+    $("aside.left-panel nav.navigation > ul > li:has(ul) > a").click(function() {
+
+        if( $("aside.left-panel").hasClass('collapsed') == false || $(window).width() < 768 ){
+            $("aside.left-panel nav.navigation > ul > li > ul").slideUp(300);
+            $("aside.left-panel nav.navigation > ul > li").removeClass('active');
+
+            if(!$(this).next().is(":visible"))
+            {
+                $(this).next().slideToggle(300);
+                $(this).closest('li').addClass('active');
+            }
+
+            return false;
+        }
+    });
+
 });
