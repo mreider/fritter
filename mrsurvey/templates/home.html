@@ -10,9 +10,9 @@
 <ul class="list-unstyled surveys-list">
   {%- for survey in surveys -%}
     <li id="survey-{{survey.id}}">
-      <a href="javascript:void(0);" data-survey-id="{{survey.id}}">
+      <a href="javascript:void(0);" data-survey-id="{{survey.id}}" data-toggle="tooltip" title="{{survey.description}}">
         <i class="fa fa-list"></i>
-        <span class="nav-label" data-toggle="tooltip" title="{{survey.description}}">
+        <span class="nav-label">
           <span class="survey-name">{{survey.name}}</span> (${{survey.balance if survey.started else survey.dollars}})
         </span>
       </a>

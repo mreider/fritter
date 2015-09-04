@@ -15,6 +15,11 @@ function getQS(name) {
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
+
+function updateDynControl() {
+    $('[data-toggle="tooltip"]').tooltip();
+}
+
 // SINGLE PAGE MODEL
 
 this.SurveysModel = function(config) {
@@ -59,6 +64,7 @@ this.SurveysModel = function(config) {
         })
         .always(function(response) {
             if (resetPageLoading) { pageLoading(false); }
+            updateDynControl();
         });
     }
 
@@ -108,6 +114,7 @@ this.SurveysModel = function(config) {
         })
         .always(function(response) {
             pageLoading(false);
+            updateDynControl();
         });
     }
 
@@ -326,4 +333,5 @@ $(function() {
         }
     });
 
+    updateDynControl();
 });
