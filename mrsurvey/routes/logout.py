@@ -1,6 +1,6 @@
 ﻿# -*- coding: utf-8 -*-
 
-from flask import redirect, url_for, current_app, get_flashed_messages
+from flask import redirect, url_for, current_app, get_flashed_messages, session
 from flask.ext.login import logout_user
 
 def logout():

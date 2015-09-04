@@ -14,3 +14,4 @@ docs/_build/
 /sass/.sass-cache/**
 env/
 *.bat
+*.sqlite3
