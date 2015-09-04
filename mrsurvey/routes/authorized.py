@@ -1,8 +1,8 @@
 ﻿# -*- coding: utf-8 -*-
 
-from flask import redirect, url_for, flash, request, session, current_app
+from flask import redirect, url_for, flash, request, session, current_app, render_template
 from flask_oauthlib.client import OAuthException
-from flask.ext.login import login_user
+from mrsurvey.flask_login import login_user
 from mrsurvey.extensions import db, google_auth
 from mrsurvey.models import User
 
@@ -25,7 +25,19 @@ def authorized():
     else:
         try:
             session['google_token'] = (response['access_token'], '')
+
             me = google_auth.get('userinfo') or {}
+
+            if current_app.config['LIMIT_DOMAINS']:
+                username, domain = me.data['email'].split('@')
+                if domain not in current_app.config['LIMIT_DOMAINS']:
+                    if 'token' in session:
+                        session.pop('token')
+
+                    return render_template('domain_denied.html',
+                                           allowed_domains=current_app.config['LIMIT_DOMAINS'],
+                                           denied_domain=domain,
+                                           email=me.data['email'].split('@'))
 
             user = User.query.filter(User.email == me.data['email']).first()
 

@@ -1,7 +1,8 @@
 ﻿# -*- coding: utf-8 -*-
 
 from flask import Blueprint, jsonify, request
-from flask.ext.login import login_required, current_user
+#from flask.ext.login import login_required, current_user
+from mrsurvey.flask_login import login_required, current_user
 from sqlalchemy import desc
 from mrsurvey.services.base import BaseAPI
 from mrsurvey.extensions import db

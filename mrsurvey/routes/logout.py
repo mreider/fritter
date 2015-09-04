@@ -1,7 +1,8 @@
 ﻿# -*- coding: utf-8 -*-
 
 from flask import redirect, url_for, current_app, get_flashed_messages, session
-from flask.ext.login import logout_user
+#from flask.ext.login import logout_user
+from mrsurvey.flask_login import logout_user
 
 def logout():
     current_app.logger.info('logout')

@@ -2,7 +2,8 @@
 
 from flask import Blueprint, jsonify, request
 from flask.views import MethodView
-from flask.ext.login import login_required, current_user
+#from flask.ext.login import login_required, current_user
+from mrsurvey.flask_login import login_required, current_user
 from mrsurvey.extensions import db
 from mrsurvey.services.base import BaseAPI
 from mrsurvey.models import Item, User, Purchase, UserWallet, Survey

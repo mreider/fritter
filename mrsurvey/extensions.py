@@ -3,7 +3,8 @@
 from flask.ext.sqlalchemy import SQLAlchemy
 db = SQLAlchemy(session_options={'autoflush': False})
 
-from flask.ext.login import LoginManager
+#from flask.ext.login import LoginManager
+from mrsurvey.flask_login import LoginManager
 login_manager = LoginManager()
 
 from flask_oauthlib.client import OAuth

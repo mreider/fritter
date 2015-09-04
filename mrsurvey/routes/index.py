@@ -1,7 +1,7 @@
 ﻿# -*- coding: utf-8 -*-
 
 from flask import redirect, url_for, session, current_app
-from flask.ext.login import current_user
+from mrsurvey.flask_login import current_user
 
 def index():
     current_app.logger.info('index')

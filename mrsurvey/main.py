@@ -71,8 +71,8 @@ def configure_extensions(app):
         result = None
         try:
             result = User.query.get(int(userid))
-        except:
-            pass
+        except Exception as ex:
+            app.logger.error('USER GETTER: Error occurs while retrieving user by id {}, reason: {}'.format(userid, str(ex)))
 
         return result
 
