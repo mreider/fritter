@@ -40,6 +40,7 @@ class ItemAPI(BaseAPI):
                  .group_by(Item.id)
                  .filter(Item.survey_id==survey_id)
                  .all())
+        purchased = [p.thing_id for p in current_user.purchases if p.thing.survey_id==survey_id]
 
         for item, purchased_times in items:
             item_dict = {
@@ -47,7 +48,7 @@ class ItemAPI(BaseAPI):
                 'description': item.description,
                 'id': item.id,
                 'price': item.price,
-                'purchased': purchased_times > 0,
+                'purchased': item.id in purchased,
                 'comments_count': len(item.comments),
                 'who_bought': [{'name': p.user.name, 'avatar': p.user.avatar}
                                for p in Purchase.query
@@ -84,7 +85,10 @@ class ItemAPI(BaseAPI):
 
                 return self.response_ok(data={
                     'purchase': purchase.serialize(),
-                    'balance': wallet.dollars
+                    'balance': wallet.dollars,
+                    'who_bought': [{'name': p.user.name, 'avatar': p.user.avatar}
+                                   for p in Purchase.query
+                                   .filter(Purchase.thing_id==item_id).all()],
                 })
         elif action == 'sell':
             purchase = (Purchase.query
@@ -101,17 +105,22 @@ class ItemAPI(BaseAPI):
                           .one())
                 wallet.dollars += purchase.dollars
 
-                data = self.response_ok(data={
+                data={
                     'user': current_user.serialize(),
                     'item_id': item_id,
                     'purchase': purchase.serialize(),
                     'balance': wallet.dollars
-                })
+                }
 
                 db.session.delete(purchase)
                 db.session.commit()
 
-                return data
+                data['who_bought'] = [
+                    {'name': p.user.name, 'avatar': p.user.avatar}
+                    for p in Purchase.query.filter(Purchase.thing_id==item_id).all()
+                ]
+
+                return self.response_ok(data=data)
 
         return self.response_fail('Wrong method')
 

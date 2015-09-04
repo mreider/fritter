@@ -62,12 +62,7 @@
 
             <div class="who-bought-wrap">
               <div class="who-bought-head">Users who bought this item:</div>
-              <div class="who-bought-body">
-                {{#who_bought}}
-                  <img class="img-circle bought-avatar" alt="{{name}}" src="{{avatar}}" title="{{name}}" />
-                {{/who_bought}}
-
-              </div>
+              <div class="who-bought-body"></div>
             </div>
 
           </div>
@@ -99,6 +94,12 @@
 
         </div>
       </div>
+  </script>
+
+  <script type="text/template" id="who-bought">
+    {{#users}}
+    <img class="img-circle bought-avatar" alt="{{name}}" src="{{avatar}}" title="{{name}}" />
+    {{/users}}
   </script>
 
   <script type="text/template" id="comment-template">

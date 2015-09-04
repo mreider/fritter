@@ -108,6 +108,8 @@ this.SurveysModel = function(config) {
                     }
 
                     $('.items-list').append($node);
+
+                    renderWhoBought($node.find('.who-bought-body'), item.who_bought);
                 }
                 $('.items-list').show();
 
@@ -234,6 +236,14 @@ this.SurveysModel = function(config) {
         });
     }
 
+    function renderWhoBought($parent, users) {
+        var template = $('#who-bought').html();
+        Mustache.parse(template);
+
+        $nodes = $(Mustache.render(template, {users: users}));
+        $parent.html('').append($nodes);
+    }
+
     function purchaseItem(e) {
         var $item = $(e.currentTarget).parents('.item'),
             itemId = $item.attr('data-item-id');
@@ -253,6 +263,8 @@ this.SurveysModel = function(config) {
 
                 $item.find('.button-purchase').attr('disabled', 'disabled');
                 $item.find('.button-sell').removeAttr('disabled');
+
+                renderWhoBought($item.find('.who-bought-body'), response.data.who_bought);
             } else {
                 alert(response.message);
             }
@@ -284,6 +296,8 @@ this.SurveysModel = function(config) {
 
                 $item.find('.button-purchase').removeAttr('disabled');
                 $item.find('.button-sell').attr('disabled', 'disabled');
+
+                renderWhoBought($item.find('.who-bought-body'), response.data.who_bought);
             } else {
                 alert(response.message);
             }
