@@ -59,7 +59,7 @@ this.SurveysModel = function(config) {
             }
         })
         .fail(function(response) {
-            alert('Something goes wrong with items list!');
+            alert('There appears to be an error with one of the items.\n\nHmmmm...');
             (fail || $.noop)();
         })
         .always(function(response) {
@@ -108,7 +108,7 @@ this.SurveysModel = function(config) {
             }
         })
         .fail(function(response) {
-            alert('Something goes wrong with items list!');
+            alert('There appears to be an error with one of the items.\n\nHmmmm...');
             (fail || $.noop)();
             pageLoading(false);
         })
@@ -124,7 +124,6 @@ this.SurveysModel = function(config) {
         $element = $(e.currentTarget);
         $element.parent().addClass('active');
         var surveyName = $(e.currentTarget).find('.survey-name').text();
-        document.title = "Surveys::" + surveyName;
         $('.top-head .survey-name').html(surveyName);
 
         var surveyId = $element.attr('data-survey-id');
@@ -279,7 +278,7 @@ this.SurveysModel = function(config) {
             }
         })
         .fail(function(response) {
-            alert('Something goes wrong with your selling!')
+            alert('There appears to be a problem in selling this item.\n\nHmmm...')
         })
         .always(function(response) {
             pageLoading(false);

@@ -1,14 +1,95 @@
-name: survey1
-description: It is just first survey
-dollars: 100
+name: Purchase OpsMan Features
+description: As of September 3, 2015
+dollars: 400
 items:
-  - name: item1
-    description: Just Item One
+  - name: BOSH Health Manager Plugins
+    description: Users should be able to add email, Event Logger, PagerDuty, DataDog, Sensu, AWS CloudWatch plugins.
     price: 50
-  - name: item2
-    description: Just Item Two
-    price: 60
-  - name: item3
-    description: Marvelous Item Three
-    price: 90
+  - name: Sync Assets with BOSH
+    description: Users should not have to upload stemcells or releases to Ops Manager if BOSH alread contains the asset.
+    price: 50
+  - name: Multiple Foundations
+    description: Users should be able deploy one or many directors, and one or many tiles per director.
+    price: 400
+  - name: Multiple Availability Zones
+    description: Users should be able to deploy redundant jobs across AZs on AWS and OpenStack. This item is priced assuming that the BOSH team has completed the AZ work described at bosh-notes in github.
+    price: 50
+  - name: On Demand Errands
+    description: Users should be able to run errands at any time without having to do a deploy.
+    price: 20
+  - name: Small, Medium, and Large Tile Profiles
+    description: Users should be able to deploy preset sizes of a tile without worrying about the number of instances, sizes, or redunancy, of jobs.
+    price: 50
+  - name: Update Ops Manager Certs
+    description: Users should be able to update the Ops Manager SSL certificate using some to-be-identified means.
+    price: 20
+  - name: Cancel Deployment Button
+    description: Users should be able to cancel deployments to save them from waiting for everything to finish.
+    price: 20
+  - name: Rotation of Certs, Secrets and Credentials
+    description: Users should be able to rotate certificates, secrets, and credentials where possible.
+    price: 50
+  - name: Disks Assigned by Products
+    description: Users should be able to assign products to different datastores / disks.
+    price: 50
+  - name: Import BOSH Manifest
+    description: Users should be able to import a BOSH manifest into Ops Manager.
+    price: 400
+  - name: Manually Enter Credentials
+    description: Users should be able change certificates, secrets, and credentials to user entered values where possible.
+    price: 50
+  - name: Custom Flavors
+    description: Users should be able to create custom sizes / flavors for OpenStack, AWS, and vSphere.
+    price: 50
+  - name: Solve Upgrade Compatability
+    description: Users should be able to upgrade from one product to another without having to remain in a certain version of Ops Manager. (currently scheduled for late September).
+    price: 400
+  - name: Disable Errands after First run
+    description: Users should not have to wait for errands to run on a subsequent deploy since they likely forgot to uncheck the errand boxes by mistake.
+    price: 20
+  - name: PivNet Downloads
+    description: Users should be able to download new products directly from Ops Manager rather than having to visit Pivotal Network, download, then upload to Ops Manager.
+    price: 50
+  - name: Total Resources Used
+    description: Users should be able to see all resources used across every product.
+    price: 20
+  - name: Ignore warnings like ICMP
+    description: Users should not have see warnings like ICMP if they choose to ignore them permanently.
+    price: 10
+  - name: Better Progress Indicators
+    description: Users should be able to see a progress indicator rather than a spinner when they upload or export things from Ops Manager.
+    price: 100
+  - name: Run BOSH CCK on Demand
+    description: Users should be able to run BOSH CCK, and fix problems with BOSH CCK, from the Ops Manager interface.
+    price: 50
+  - name: Deploy Only What is Needed
+    description: Users should deploy tiles that have changed rather than wait for deployments of every tile regardless of changes.
+    price: 50
+  - name: Push Button Shut Down / Resart of All VMs
+    description: Users should be able to shut down all VMs, in order, and / or restart them from the Ops Manager interface.
+    price: 20
+  - name: Multiple Users
+    description: Users should be able to login using seperate user accounts and credentials.
+    price: 100
+  - name: CloudFormation Options
+    description: Users should be able to opt out of using RDS when they launch the AWS CloudFormation template.
+    price: 20
+  - name: Check Director for Disk Space
+    description: Users should be able to check the Director disk space before uploading assets, which might be too large.
+    price: 50
+  - name: Visualize BOSH deployments
+    description: Users should be able to visualize BOSH deployments, VMs, networks, AZs, and storage using an interactive diagram.
+    price: 50
+  - name: Log Retention Policy
+    description: Users should be able to set a log retention policy for BOSH deployment logs, error, and system logs in Ops Manager.
+    price: 20
+  - name: Easier to Find Endpoints
+    description: Users be able to easily find endpoints and credentials for frequently used targets like cloud controller, admin users, and BOSH.
+    price: 20
+  - name: Verify Cryptographic Signatures
+    description: Users should be able to verify that the products they import into Ops Manager are authentic and have not been tampered with.
+    price: 20
+  - name: Fresh Clean Button
+    description: Users should be able to click a 'clean' button which resets Ops Manager and clears all of its settings.
+    price: 10
 
