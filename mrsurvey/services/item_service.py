@@ -8,7 +8,9 @@ from mrsurvey.services.base import BaseAPI
 from mrsurvey.models import Item, User, Purchase, UserWallet, Survey
 from datetime import datetime
 
+
 module = Blueprint('service.item_service', __name__)
+
 
 class ItemAPI(BaseAPI):
     decorators = [login_required]
@@ -33,22 +35,28 @@ class ItemAPI(BaseAPI):
 
         serialized_items = []
 
-        items = Item.query.select_from(Item).filter(Item.survey_id==survey_id).all()
-        purchased = [p.thing_id for p in current_user.purchases if p.thing.survey_id==survey_id]
-        for item in items:
+        items = (db.session.query(Item, db.func.count(Purchase.thing_id))
+                 .outerjoin(Purchase)
+                 .group_by(Item.id)
+                 .filter(Item.survey_id==survey_id)
+                 .all())
+
+        for item, purchased_times in items:
             item_dict = {
                 'name': item.name,
                 'description': item.description,
                 'id': item.id,
                 'price': item.price,
-                'purchased': item.id in purchased,
+                'purchased': purchased_times > 0,
                 'comments_count': len(item.comments),
                 'who_bought': [{'name': p.user.name, 'avatar': p.user.avatar}
                                for p in Purchase.query
-                               .filter(Purchase.thing_id==item.id).all()]
+                               .filter(Purchase.thing_id==item.id).all()],
+                'weight': purchased_times
             }
             serialized_items.append(item_dict)
 
+        serialized_items.sort(key=lambda x: (x['weight'], x['price']), reverse=True)
         return self.response_ok(data={'items': serialized_items})
 
     def post(self):
