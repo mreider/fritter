@@ -124,7 +124,6 @@ this.SurveysModel = function(config) {
         $element = $(e.currentTarget);
         $element.parent().addClass('active');
         var surveyName = $(e.currentTarget).find('.survey-name').text();
-        document.title = "Surveys::" + surveyName;
         $('.top-head .survey-name').html(surveyName);
 
         var surveyId = $element.attr('data-survey-id');
