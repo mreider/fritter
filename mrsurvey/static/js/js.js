@@ -20,6 +20,15 @@ function updateDynControl() {
     $('[data-toggle="tooltip"]').tooltip();
 }
 
+loginRejected(response, message) {
+    if (response && response.status === 0 && response.state() === 'rejected') {
+        window.location = '/';
+        return
+    }
+
+    alert(message);
+}
+
 // SINGLE PAGE MODEL
 
 this.SurveysModel = function(config) {
@@ -59,8 +68,8 @@ this.SurveysModel = function(config) {
             }
         })
         .fail(function(response) {
-            alert('There appears to be an error with one of the items.');
             (fail || $.noop)();
+            loginRejected(response, 'There appears to be an error with one of the items.');
         })
         .always(function(response) {
             if (resetPageLoading) { pageLoading(false); }
@@ -108,8 +117,8 @@ this.SurveysModel = function(config) {
             }
         })
         .fail(function(response) {
-            alert('There appears to be an error with one of the items.\n\nHmmmm...');
             (fail || $.noop)();
+            loginRejected(response, 'There appears to be an error with one of the items.\n\nHmmmm...');
             pageLoading(false);
         })
         .always(function(response) {
@@ -179,8 +188,8 @@ this.SurveysModel = function(config) {
                 }
             })
             .fail(function(response) {
-                alert('Something goes wrong with comments!')
                 (fail || $.noop)();
+                loginRejected(response, 'Something goes wrong with comments!')
             })
             .always(function(response) {
                 pageLoading(false);
@@ -217,7 +226,7 @@ this.SurveysModel = function(config) {
             }
         })
         .fail(function(response) {
-            alert('Something goes wrong with your purchase!')
+            loginRejected(response, 'Something goes wrong with your purchase!')
         })
         .always(function(response) {
             pageLoading(false);
@@ -248,7 +257,7 @@ this.SurveysModel = function(config) {
             }
         })
         .fail(function(response) {
-            alert('Something goes wrong with your purchase!')
+            loginRejected(response, 'Something goes wrong with your purchase!')
         })
         .always(function(response) {
             pageLoading(false);
@@ -279,7 +288,7 @@ this.SurveysModel = function(config) {
             }
         })
         .fail(function(response) {
-            alert('There appears to be a problem in selling this item.\n\nHmmm...')
+            loginRejected(response, 'There appears to be a problem in selling this item.\n\nHmmm...')
         })
         .always(function(response) {
             pageLoading(false);

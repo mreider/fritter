@@ -45,8 +45,7 @@ class ItemAPI(BaseAPI):
                 'comments_count': len(item.comments),
                 'who_bought': [{'name': p.user.name, 'avatar': p.user.avatar}
                                for p in Purchase.query
-                               .filter(Purchase.thing_id==item.id)
-                               .filter(Purchase.user!=current_user).all()]
+                               .filter(Purchase.thing_id==item.id).all()]
             }
             serialized_items.append(item_dict)
 
