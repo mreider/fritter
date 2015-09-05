@@ -17,4 +17,4 @@ GOOGLE = {
 REMEMBER_COOKIE_DURATION=timedelta(seconds=3600)
 
 PLATFORM='cf' # 'heroku'
-LIMIT_DOMAINS = ['gmail.com', 'ibm.com']
+LIMIT_DOMAINS = ['pivotal.io']
