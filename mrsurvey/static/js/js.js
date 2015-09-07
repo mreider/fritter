@@ -245,7 +245,7 @@ this.SurveysModel = function(config) {
     }
 
     function purchaseItem(e) {
-        if ((e.currentTarget).attr('disabled')) {
+        if ($(e.currentTarget).attr('disabled')) {
             return;
         }
 
@@ -282,7 +282,7 @@ this.SurveysModel = function(config) {
     }
 
     function sellItem(e) {
-        if ((e.currentTarget).attr('disabled')) {
+        if ($(e.currentTarget).attr('disabled')) {
             return;
         }
 
@@ -302,8 +302,8 @@ this.SurveysModel = function(config) {
                 var purchase = response.data.purchase;
                 $('.user-amount .amount').html(response.data.balance)
 
-                $item.find('.button-purchase').removeAttr('disabled').addClass('disabled');
-                $item.find('.button-sell').attr('disabled', 'disabled').removeClass('disabled');
+                $item.find('.button-purchase').removeAttr('disabled').removeClass('disabled');
+                $item.find('.button-sell').attr('disabled', 'disabled').addClass('disabled');
 
                 renderWhoBought($item.find('.who-bought-body'), response.data.who_bought);
             } else {
