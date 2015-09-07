@@ -47,6 +47,10 @@ def configure_app(app):
     else:
         raise ValueError('GOOGLE key/secret must be defined')
 
+
+    if os.getenv('LIMIT_DOMAINS'):
+        app.config['LIMIT_DOMAINS'] = [d.strip() for d in os.getenv('LIMIT_DOMAINS').split(',')]
+
     app.logger.setLevel(logging.DEBUG)
 
 def configure_extensions(app):
