@@ -19,6 +19,8 @@ def init(name):
 
 
 def configure_app(app):
+    app.logger.setLevel(logging.DEBUG)
+
     app.config.from_object('mrsurvey.config.app_config')
 
     platform = os.getenv('PLATFORM', app.config['PLATFORM'])
@@ -48,10 +50,11 @@ def configure_app(app):
         raise ValueError('GOOGLE key/secret must be defined')
 
 
+    app.logger.info('LIMIT_DOMAINS from ennvars: "{}"'.format(os.getenv('LIMIT_DOMAINS', 'not defined')))
     if os.getenv('LIMIT_DOMAINS'):
-        app.config['LIMIT_DOMAINS'] = [d.strip() for d in os.getenv('LIMIT_DOMAINS').split(',')]
+        app.config['LIMIT_DOMAINS'] = [d.strip() for d in os.getenv('LIMIT_DOMAINS').split(' ')]
 
-    app.logger.setLevel(logging.DEBUG)
+    app.logger.info('LIMIT_DOMAINS "{}"'.format(app.config['LIMIT_DOMAINS']))
 
 def configure_extensions(app):
     db.init_app(app)
