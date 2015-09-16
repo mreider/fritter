@@ -26,18 +26,12 @@ items:
   - name: Cancel Deployment Button
     description: Users should be able to cancel deployments to save them from waiting for everything to finish.
     price: 20
-  - name: Rotation of Certs, Secrets and Credentials
-    description: Users should be able to rotate certificates, secrets, and credentials where possible.
-    price: 50
   - name: Disks Assigned by Products
     description: Users should be able to assign products to different datastores / disks.
     price: 50
   - name: Import BOSH Manifest
     description: Users should be able to import a BOSH manifest into Ops Manager.
     price: 400
-  - name: Manually Enter Credentials
-    description: Users should be able change certificates, secrets, and credentials to user entered values where possible.
-    price: 50
   - name: Custom Flavors
     description: Users should be able to create custom sizes / flavors for OpenStack, AWS, and vSphere.
     price: 50
@@ -85,9 +79,6 @@ items:
     price: 20
   - name: Easier to Find Endpoints
     description: Users be able to easily find endpoints and credentials for frequently used targets like cloud controller, admin users, and BOSH.
-    price: 20
-  - name: Verify Cryptographic Signatures
-    description: Users should be able to verify that the products they import into Ops Manager are authentic and have not been tampered with.
     price: 20
   - name: Fresh Clean Button
     description: Users should be able to click a 'clean' button which resets Ops Manager and clears all of its settings.
