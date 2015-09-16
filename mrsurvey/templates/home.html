@@ -22,7 +22,30 @@
 {%- endblock surveys_list -%}
 
 {%- block content -%}
-<div class="select-survey">Choose a survey from the left.</div>
+<div class="select-survey">
+  <h2>What is Fritter?</h2>
+  <p>The goal of Fritter is to help Product Managers prioritize their backlog. Product Managers use fritter to conduct user surveys to answer the question "Which features are most 
+  important to you?"</p>
+  <h2>How are Fritter surveys unique?</h2>
+  <p>Fritter Surveys force respondants to consider the scope of a feature. Everyone gets a certain amount of money, say $400, and each feature costs something. Respondants can choose many small features, or one big feature, but not both.</p>
+  <h2>Why force respondants into considering scope?</h2>
+  <p>Because you, as a PM, prioritize things based on Scope.</p>
+  <h2>How do I create a survey?</h2>
+  <p>
+    <ol>
+      <li>Compile a list of feature requests that you have not prioritized</li>
+      <li>Ask your engineering lead to help you size each feature in terms of XS, S, M, L, and XL</li>
+      <li>Create a YAML file, based on the example [here](https://github.com/mreider/fritter/blob/master/yamls/survey1.yml)</li>
+      <li>Upload the YAML file to /uploadyaml and send an email to your users to complete the Survey.</li>
+    </ol>
+  </p>
+  <h2>How did you come up with the amount of money to give respondants, and the dollar amounts for XS, S, M, L, and XL sizes?</h2>
+  <p>I wanted the survey to give enough $ for users to buy features for about one release cycle. The XL stories felt like they would take about that long.
+  It also felt like you could do about 40 XS stories for a release cycle. Sure, complexity is different than time, we know that. These are best guesses, and it's not scientific. 
+  </p>
+  <h2>How do you delete / modify the surveys, users and responses?</h2>
+  <p>This application was built in only 2 days. It's not very full featured. If you want to modify surveys, users, and responses, you can use SQL.</p>
+</div>
 <div class="items-list"></div>
 {%- endblock content -%}
 
