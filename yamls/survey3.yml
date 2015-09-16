@@ -1,23 +1,28 @@
-name: Coffee stuff 2
-description: Coffe-related luxury items
-dollars: 200
+name: Tivo Features
+description: Features Considered for Tivo
+dollars: 400
 items:
-  - name: Набор для приготовления
-    description: Набор для приготовления кофе на песке "Восточный""Виноград" (Турция).
-    price: 80
-
-  - name: Набор для приготовления
-    description: Набор для приготовления кофе на песке "Тет-а-Тет" (Турция).
-    price: 90
-
-  - name: Подарочный набор
-    description: Подарочный набор "Кофейный гурман" из меди TimA.
+  - name: Priority family memeber list
+    description: Users should be able to create list of family members, with priorities assigned, so that recording conflicts are resolved by family status.
     price: 100
-
-  - name: Подарочный набор
-    description: Подарочный набор "Кофейный гурман"(тубус) из меди TimA (Россия)
-    price: 130
-
-  - name: Подставка латунная под кофеварку
-    description: Подставка латунная под кофеварку 18см ООО"Станица"(г.Пятигорск).
+  - name: Parental Controls
+    description: Users should have to type in a special code to record anything for mature audiences
+    price: 100
+  - name: Export to NAS
+    description: Users should be able point Tivo to a Network Attached Storage (NAS) device for additional recording capacity
+    price: 400
+  - name: Record in HD only
+    description: Users should be able to flag scheduled recordings for high quality. If a show is not available in HD Tivo will not record it.
+    price: 10
+  - name: Arcade Mode
+    description: Users should be able to load MAME ROMs and play Galaga, Donkey Kong, etc. Note: this feature is pending legal approval. Something about copyrights.
+    price: 400
+  - name: Share on YouTube
+    description: Users should be able to publish recordings to their YouTube account. Also pending legal approval.
     price: 50
+  - name: Remove Language Packs
+    description: Users should be able to delete language packs to free up valuable disk space for recording shows they want.
+    price: 10
+  - name: Contact Support
+    description: Users should be able to contact Tivo support and chat with a representative if they have a camera and microphone attached to their device.
+    price: 100    
