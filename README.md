@@ -17,7 +17,7 @@ Because you, as a PM, prioritize things based on Scope.
 3.  Create a YAML file, based on the example [here](https://github.com/mreider/fritter/blob/master/yamls/survey1.yml)
 4.  Upload the YAML file to /uploadyaml and send an email to your users to complete the Survey.
 
-## How did you come up with the amount of money to give respondants, and the dollar amounts for XS, S, M, L, and XL sizes?
+## How did you come up with the increments of $?
 
 I wanted the survey to give enough $ for users to buy features for about one release cycle. The XL stories felt like they would take about that long. It also felt like you could do about 40 XS stories for a release cycle. Sure, complexity is different than time, we know that. These are best guesses, and it's not scientific.
 
