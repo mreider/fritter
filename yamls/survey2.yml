@@ -1,43 +1,28 @@
-name: Coffe stuff 1
-description: Coffe-related items
-dollars: 100
+name: Microsoft Word Features
+description: Features Considered for Microsoft Word
+dollars: 400
 items:
-  - name: துர்க் "கிழக்கு காலை"
-    description: ஒரு பரிசு பெட்டியில் நீக்கக்கூடிய கைப்பிடி கொண்ட துர்க் செப்பு சராசரி "கிழக்கு காலை" TimA 0,30l (முழு).
-    price: 11
-  - name: துருக்கியர் செப்பு சராசரி
-    description: ஒரு பரிசு பெட்டியில் நீக்கக்கூடிய கைப்பிடி கொண்ட துர்க் செப்பு சராசரி "கிழக்கு காலை" TimA 0,42l (முழு).
-    price: 40
-  - name: เติร์กทองแดงเฉลี่ย
-    description: เติร์กทองแดงเฉลี่ย "อีสานตอนเช้า" Tima 0,30l (ทั้งหมด) ที่มีการจัดการที่ถอดออกได้
-    price: 30
-  - name: Турка мельхиоровая
-    description: Турка мельхиоровая "Нефертити" ООО"Станица"(г.Пятигорск) 0,3л
-    price: 4
-  - name: สแตนเลสเติร์ก
-    description: สแตนเลสเติร์ก 18/10, รีเจ้นท์ INOX, 0,35l
-    price: 6
-  - name: Aço inoxidável Turk
-    description: Turk aço inoxidável 18/10, regente inox, 180ml
-    price: 6
-  - name: Турка нержавеющая сталь
-    description: Турка нержавеющая сталь 18/10 , REGENT inox, 750млVALUES
-    price: 6
-  - name: कपर टी
-    description: कपर टी लिमिटेड "गाउँमा" एक उपहार बक्स मा (प्यतिगोर्स्क) 0,38l।
+  - name: Send documents via hotmail
+    description: Users should be able to login and send Word documents from hotmail
+    price: 100
+  - name: Highlight curse words
+    description: Grammar checking should underline known curse words in yellow
     price: 20
-  - name: Турка медная  малая
-    description: Турка медная  малая "Утро Востока"TimA  0,18л (цельная)
-    price: 14
-  - name: ടർക്ക് വലിയ ചെമ്പ്
-    description: ടർക്ക്സ് ചെമ്പ് വലിയ "എന്ന തലക്കെട്ടിൽ 'TimA 0,30 (ഒന്ന്-കഷണം)
-    price: 60
-  - name: Турка медная большая
-    description: Турка медная большая "Турчанка" TimA  0,7л  со съемной ручкой.
-    price: 70
-  - name: Кофеварка медная
-    description: Кофеварка медная с узким горлом "Орел" ООО"Станица"(г.Пятигорск) 0,3л
-    price: 20
-  - name: Кофеварка медная
-    description: Кофеварка медная с узким горлом  ООО"Станица"(г.Пятигорск) 0,38л
-    price: 37
+  - name: Convert to Markdown
+    description: Users should be able to convert word docs to Markdown. This feature would be limited to the things that can be converted.
+    price: 50
+  - name: Blink support
+    description: Users should be able to make text blink
+    price: 10
+  - name: Arcade Mode
+    description: Users should be able to load MAME ROMs and play Galaga, Donkey Kong, etc. Note: this feature is pending legal approval. Something about copyrights.
+    price: 400
+  - name: Publish to Microsoft Book Devices
+    description: Users should be able to publish documents as .mobi, .pdf, or .micbook to Microsoft Book Devices, going on the market in 2016. This feature is blocked on the Microsoft Book Device.
+    price: 100
+  - name: Screenplay Generator
+    description: Users should be able to create skeleton templates for screenplays in approved Writer's Guild format
+    price: 50
+  - name: Google Docs Compatability
+    description: Users should be able to seemlessly publish docs to Google Drive from within Microsoft Word.
+    price: 20    
