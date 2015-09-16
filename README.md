@@ -2,6 +2,8 @@
 
 The goal of Fritter is to help Product Managers prioritize their backlog. Product Managers use fritter to conduct user surveys to answer the question "Which features are most important to you?"
 
+You can see a demo of Fritter [here](http://frittata.cfapps.io/).
+
 ## How are Fritter surveys unique?
 
 Fritter Surveys force respondants to consider the scope of a feature. Everyone gets a certain amount of money, say $400, and each feature costs something. Respondants can choose many small features, or one big feature, but not both.
@@ -14,7 +16,7 @@ Because you, as a PM, prioritize things based on Scope.
 
 1.  Compile a list of feature requests that you have not prioritized
 2.  Ask your engineering lead to help you size each feature in terms of XS, S, M, L, and XL
-3.  Create a YAML file, based on the example [here](https://github.com/mreider/fritter/blob/master/yamls/survey1.yml)
+3.  Create a YAML file, based on the example [here](https://github.com/mreider/fritter/blob/master/yamls/survey2.yml)
 4.  Upload the YAML file to /uploadyaml and send an email to your users to complete the Survey.
 
 ## How did you come up with the increments of $?
@@ -39,7 +41,7 @@ CD into the director
 cd fritter
 ```
 
-Modify line 20 to limit or not limit the domains allowed into your app
+Modify line 20 to change the domains limited into your app
 
 ```
 vim mrsurvey/config/app_config.py
@@ -73,7 +75,7 @@ Set some environment variables
 
 ```
 cf set-env my-app224 GOOGLE_CONSUMER_KEY 3352648m6iu22dlevkqbqtgo.apps.googleusercontent.com
-cf set-env my-app224 GOOGLE_CONSUMER_SECRET: Jr38yO8jtkYx7vfhhjvpruOoKK
+cf set-env my-app224 GOOGLE_CONSUMER_SECRET: Jr38yO8fetkYx7vfhhjvpruOoKK
 cf set-env plaform cf
 ```
 
