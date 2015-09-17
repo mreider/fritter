@@ -75,7 +75,7 @@ Set some environment variables
 
 ```
 cf set-env my-app224 GOOGLE_CONSUMER_KEY 3352648m6iu22dlevkqbqtgo.apps.googleusercontent.com
-cf set-env my-app224 GOOGLE_CONSUMER_SECRET: Jr38yO8fetkYx7vfhhjvpruOoKK
+cf set-env my-app224 GOOGLE_CONSUMER_SECRET Jr38yO8fetkYx7vfhhjvpruOoKK
 cf set-env plaform cf
 ```
 
