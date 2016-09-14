@@ -17,7 +17,7 @@ Because you, as a PM, prioritize things based on Scope.
 1.  Compile a list of feature requests that you have not prioritized
 2.  Ask your engineering lead to help you size each feature in terms of XS, S, M, L, and XL
 3.  Create a YAML file, based on the example [here](https://github.com/mreider/fritter/blob/master/yamls/survey2.yml)
-4.  Upload the YAML file to /uploadyaml and send an email to your users to complete the Survey.
+4.  Upload the YAML file via the /loadyaml page and send an email to your users to complete the Survey.
 
 ## How did you come up with the increments of $?
 
@@ -71,12 +71,12 @@ Bind the service to your instance
 cf bind-service my-app224 mydb
 ```
 
-Set some environment variables
+Set some environment variables (see below for how to generate these)
 
 ```
-cf set-env my-app224 GOOGLE_CONSUMER_KEY 3352648m6iu22dlevkqbqtgo.apps.googleusercontent.com
-cf set-env my-app224 GOOGLE_CONSUMER_SECRET Jr38yO8fetkYx7vfhhjvpruOoKK
-cf set-env plaform cf
+cf set-env my-app224 GOOGLE_CONSUMER_KEY xxxxxxxxxxxxxxxxxx.apps.googleusercontent.com
+cf set-env my-app224 GOOGLE_CONSUMER_SECRET xxxxxxxxxxxxxxxxxxxxxx
+cf set-env platform cf
 ```
 
 Create the tables you need by logging into your db instance and running the create script [here](https://github.com/mreider/fritter/blob/master/db_scripts/00-create-schema.sql)
@@ -92,3 +92,22 @@ cf start my-app224
 Do the same as above, but change the platform variable to 'heroku'
 
 
+## How Do I generate google oauth keys?
+
+Visit [Google's API Console](https://console.developers.google.com) and create a project.
+
+Go to the "Library" and search for an API matching "survey". Select "Consumer Surveys API".
+
+Go to "Credentials" and create a credential for the survey API. You'll want to select "User data" access, and access "From a web server".
+
+For restrictions, here's what worked for me (YMMV):
+
+Javascript origins:
+
+  * https://appname.cfapps.io/
+  * http://appname.cfapps.io/
+
+Redirect URIs:
+
+  * https://appname.cfapps.io/authorized
+  * http://appname.cfapps.io/authorized
