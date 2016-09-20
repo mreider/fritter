@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 from datetime import timedelta
 
@@ -17,4 +17,4 @@ GOOGLE = {
 REMEMBER_COOKIE_DURATION=timedelta(seconds=3600)
 
 PLATFORM='cf' # 'heroku'
-LIMIT_DOMAINS = ['']
+LIMIT_DOMAINS = ['pivotal.io']
